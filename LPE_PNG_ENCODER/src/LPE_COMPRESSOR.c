@@ -1,12 +1,12 @@
 /*|###################################################################################################################|
-  |  LiBOS PNG ENCODER (LPE) compressor implementation in C programming language written by Iman Abdollahzadeh.		  |
+  |  LiBOS PNG ENCODER (LPE) compressor implementation in C programming language written by Iman Abdollahzadeh.       |
   |  This is a freely distributable package under the name of the LiBOS operating system. LPE_COMPRESSOR.c document   |
   |  contains other two implementations LPE_LZ7_ENCODER.c and LPE_HUFFMAN_ENCODER.c packages as well. The compressor  |
-  |  uses the DEFLATE/INFLATE algorithm to compress the input byte stream.											  |
+  |  uses the DEFLATE/INFLATE algorithm to compress the input byte stream.                                            |
   |  The current source code was written as the first implementation of the PNG encoder package and was not optimized |
   |  for speed purposes. The author aims at the fully acceleration of the package in a separate project with the use  |
   |  of x86 SSE technology. The optimal goal would be the obtaining of the compression of a 1024 x 768 RGB PNG image  |
-  |  in less than 10 msec.																							  |
+  |  in less than 10 msec.                                                                                            |																						  |
   |###################################################################################################################|*/
 
 
@@ -97,10 +97,10 @@ void lpe_compress_data(UINT_8** compressed_data_buffer, UINT_8* filtered_data, U
 
 	// concatenate two_trees binary tree and litlen_dist binary tree together
 	lpe_huffman_concatenate_two_bitstreams(dyn_huffman_binary_data, 
-		                                   two_trees_binary_array,
-		                                   litlen_dist_binary_data,
-		                                   two_trees_bit_number,
-		                                   (litlen_tree_bit_number + dist_tree_bit_number));
+                                               two_trees_binary_array,
+                                               litlen_dist_binary_data,
+                                               two_trees_bit_number,
+                                               (litlen_tree_bit_number + dist_tree_bit_number));
 
 	// get the code bit length array
 	UINT_32* code_bit_len_array_tree = lpe_huffman_get_code_bit_lengths();
@@ -120,10 +120,10 @@ void lpe_compress_data(UINT_8** compressed_data_buffer, UINT_8* filtered_data, U
 
 	// concatenate *dyn_huffman_binary_data* and *encoded_bistream* together into *block_data* buffer
 	lpe_huffman_concatenate_two_bitstreams(block_data, 
-		                                   dyn_huffman_binary_data,
-		                                   encoded_bistream, 
-		                                   (two_trees_bit_number + litlen_tree_bit_number + dist_tree_bit_number), 
-		                                   encoded_bistream_size);
+                                               dyn_huffman_binary_data,
+                                               encoded_bistream, 
+                                               (two_trees_bit_number + litlen_tree_bit_number + dist_tree_bit_number), 
+                                               encoded_bistream_size);
 
 	// define 3-bits value called header
 	UINT_32 header = ~0;
@@ -145,10 +145,10 @@ void lpe_compress_data(UINT_8** compressed_data_buffer, UINT_8* filtered_data, U
 
 	// concatenate *result* and old *block_data* together into the new *block_data* buffer
 	lpe_huffman_concatenate_two_bitstreams(block_data, 
-		                                   &result, 
-		                                   block_data, 
-		                                   17, 
-		                                   (two_trees_bit_number + litlen_tree_bit_number + dist_tree_bit_number + encoded_bistream_size));
+                                               &result, 
+                                               block_data, 
+                                               17, 
+                                               (two_trees_bit_number + litlen_tree_bit_number + dist_tree_bit_number + encoded_bistream_size));
 
 	
 	// ...
@@ -183,17 +183,17 @@ void lpe_compress_data(UINT_8** compressed_data_buffer, UINT_8* filtered_data, U
 
 
 	/* ********************** STRUCTURE OF THE DEFLATE BLOCK **************************************************************
-	   |																												  |
-	   |    << ordered bits >>                << ordered bits >>                     << reversed bits >>				  |
+	   |                                                                                                                  |
+	   |    << ordered bits >>                << ordered bits >>                     << reversed bits >>                  |
 	   |  +------------------------+------------------------------------------+-------------------------------------+ ... |
-	   |  | BLOCK_HEADER (17 bits) | CODE BITLEN FOR 2TREES (NHCLEN * 3 bits) | 2TREES BINARY ((HLIT + HDIST) bits) |	  |
+	   |  | BLOCK_HEADER (17 bits) | CODE BITLEN FOR 2TREES (NHCLEN * 3 bits) | 2TREES BINARY ((HLIT + HDIST) bits) |     |
 	   |  +------------------------+------------------------------------------+-------------------------------------+ ... |
-	   |																												  |
-	   |        << reversed bits >>      << reversed bits >>             << ordered bits >> 							  |
-	   |  ... +-------------------------+------------------------+------------------------------------+					  |
-	   |	  | LITLEN TREE (HLIT bits) | DIST TREE (HDIST bits) | ENCODED BIT STREAM (variable bits) |					  |
-	   |  ... +-------------------------+------------------------+------------------------------------+					  |
-	   |																												  |
+	   |                                                                                                                  |
+	   |        << reversed bits >>      << reversed bits >>             << ordered bits >>                               |
+	   |  ... +-------------------------+------------------------+------------------------------------+                   |
+	   |	  | LITLEN TREE (HLIT bits) | DIST TREE (HDIST bits) | ENCODED BIT STREAM (variable bits) |                   |
+	   |  ... +-------------------------+------------------------+------------------------------------+                   |
+	   |                                                                                                                  |
 	   ******************************************************************************************************************** */
 }
 
