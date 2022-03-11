@@ -28,11 +28,11 @@
 
 //***********************************************************************************************************
 
-#define LPE_SWAP_TWO_OBJECTS(LPE_TYPE, OBJ_PTR_1, OBJ_PTR_2) do { \
-	LPE_TYPE __LPE_TYPE_OBJECT__;                                 \
-	memcpy(&__LPE_TYPE_OBJECT__, OBJ_PTR_1, sizeof(LPE_TYPE));    \
-	memcpy(OBJ_PTR_1, OBJ_PTR_2, sizeof(LPE_TYPE));               \
-	memcpy(OBJ_PTR_2, &__LPE_TYPE_OBJECT__, sizeof(LPE_TYPE));    \
+#define LPE_SWAP_TWO_OBJECTS(LPE_TYPE, OBJ_PTR_1, OBJ_PTR_2) do {  \
+	LPE_TYPE __LPE_TYPE_OBJECT__;                              \
+	memcpy(&__LPE_TYPE_OBJECT__, OBJ_PTR_1, sizeof(LPE_TYPE)); \
+	memcpy(OBJ_PTR_1, OBJ_PTR_2, sizeof(LPE_TYPE));            \
+	memcpy(OBJ_PTR_2, &__LPE_TYPE_OBJECT__, sizeof(LPE_TYPE)); \
 } while(0)
 
 //***********************************************************************************************************
