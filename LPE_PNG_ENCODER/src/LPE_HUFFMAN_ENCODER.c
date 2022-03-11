@@ -666,10 +666,10 @@ huffman_local void lpe_huffman_give_repetition_tag(LPE_HUFFMAN_VFLAB* vflab, UIN
 //***********************************************************************************************************
 
 huffman_local void lpe_huffman_which_index_is_zero_with_repetition(LPE_HUFFMAN_VFLAB* vflab, 
-	                                                               UINT_32            start_index, 
-	                                                               UINT_32            end_index,
-	                                                               UINT_32*           zero_contained_index, 
-	                                                               UINT_32*           repetition)
+                                                                   UINT_32            start_index, 
+                                                                   UINT_32            end_index,
+                                                                   UINT_32*           zero_contained_index, 
+                                                                   UINT_32*           repetition)
 {
 	// define a loop index
 	UINT_32 i = start_index;
@@ -703,10 +703,10 @@ huffman_local void lpe_huffman_which_index_is_zero_with_repetition(LPE_HUFFMAN_V
 //***********************************************************************************************************
 
 huffman_local void lpe_huffman_which_index_is_duplicated_with_repetition(LPE_HUFFMAN_VFLAB* vflab,
-	                                                                     UINT_32            start_index,
-	                                                                     UINT_32            end_index,
-	                                                                     UINT_32*           repetition_contained_index,
-	                                                                     UINT_32*           repetition)
+                                                                         UINT_32            start_index,
+                                                                         UINT_32            end_index,
+                                                                         UINT_32*           repetition_contained_index,
+                                                                         UINT_32*           repetition)
 {
 	// define a loop index
 	UINT_32 i = start_index + 1;
@@ -1026,24 +1026,24 @@ void lpe_huffman_post_process_two_trees_vflab(LPE_HUFFMAN_VFLAB* vflab, UINT_32 
 	}
 
 	/* \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-	\\\\    after elimination of tagged entries:																											   \\\\
-	\\\\    	    +----------------------------------------------------------------------------+															   \\\\
-	\\\\    value:  | 0x07 | 0x07 | 0x07 | 0x11 | 0x09 | 0x02 | 0x10 | 0x05 | 0x00 | 0x01 | 0x03 |															   \\\\
-	\\\\    	    +----------------------------------------------------------------------------+															   \\\\
-	\\\\    																																				   \\\\
-	\\\\    give repetition values a new tag (bytes after 16, 17 and 18 must be tagged)																		   \\\\
-	\\\\    	    +----------------------------------------------------------------------------+															   \\\\
-	\\\\    value:  | 0x07 | 0x07 | 0x07 | 0x11 | 0x09 | 0x02 | 0x10 | 0x05 | 0x00 | 0x01 | 0x03 |															   \\\\
-	\\\\    	    +----------------------------------------------------------------------------+															   \\\\
-	\\\\    tagged: | 0x00 | 0x00 | 0x00 | 0x00 | 0x01 | 0x00 | 0x00 | 0x01 | 0x00 | 0x00 | 0x00 |															   \\\\
-	\\\\    	    +----------------------------------------------------------------------------+															   \\\\
-	\\\\    																																				   \\\\
-	\\\\    Then, it must give such a frequency (tagged values have been neglected)																			   \\\\
-	\\\\    freq       -> 1  -  1  -  1  -  1  -  0  -  0  -  0  -  3  -  0  -  0  -  0  -  0  -  0  -  0  -  0  -  0  -  1  -  1  -  0						   \\\\
-	\\\\    At this stage, make a copy of VFLAB above. Then sort max-to-min ordered by frequency															   \\\\
-	\\\\    max_to_min -> 7  -  0  -  1  -  2  -  3  -  16 -  17 -  4  -  5  -  6  -  8  -  9  -  10 -  11 -  12 -  13 -  14 -  15 - 18						   \\\\
-	\\\\    																																				   \\\\
-	\\\\    In the end, it should give assigned reversed bits to each value in vflab																		   \\\\
+	\\\\    after elimination of tagged entries:                                                                                                               \\\\
+	\\\\            +----------------------------------------------------------------------------+                                                             \\\\
+	\\\\    value:  | 0x07 | 0x07 | 0x07 | 0x11 | 0x09 | 0x02 | 0x10 | 0x05 | 0x00 | 0x01 | 0x03 |                                                             \\\\
+	\\\\            +----------------------------------------------------------------------------+                                                             \\\\
+	\\\\                                                                                                                                                       \\\\
+	\\\\    give repetition values a new tag (bytes after 16, 17 and 18 must be tagged)                                                                        \\\\
+	\\\\            +----------------------------------------------------------------------------+                                                             \\\\
+	\\\\    value:  | 0x07 | 0x07 | 0x07 | 0x11 | 0x09 | 0x02 | 0x10 | 0x05 | 0x00 | 0x01 | 0x03 |                                                             \\\\
+	\\\\            +----------------------------------------------------------------------------+                                                             \\\\
+	\\\\    tagged: | 0x00 | 0x00 | 0x00 | 0x00 | 0x01 | 0x00 | 0x00 | 0x01 | 0x00 | 0x00 | 0x00 |                                                             \\\\
+	\\\\            +----------------------------------------------------------------------------+                                                             \\\\
+	\\\\                                                                                                                                                       \\\\
+	\\\\    Then, it must give such a frequency (tagged values have been neglected)                                                                            \\\\
+	\\\\    freq       -> 1  -  1  -  1  -  1  -  0  -  0  -  0  -  3  -  0  -  0  -  0  -  0  -  0  -  0  -  0  -  0  -  1  -  1  -  0                        \\\\
+	\\\\    At this stage, make a copy of VFLAB above. Then sort max-to-min ordered by frequency                                                               \\\\
+	\\\\    max_to_min -> 7  -  0  -  1  -  2  -  3  -  16 -  17 -  4  -  5  -  6  -  8  -  9  -  10 -  11 -  12 -  13 -  14 -  15 - 18                        \\\\
+	\\\\                                                                                                                                                       \\\\
+	\\\\    In the end, it should give assigned reversed bits to each value in vflab                                                                           \\\\
 	\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ */
 
 	// allocate memory for the provided buffer
@@ -1074,11 +1074,11 @@ huffman_local void lpe_huffman_assign_copy_vflab(LPE_HUFFMAN_VFLAB* new_vflab)
 //***********************************************************************************************************
 
 huffman_local void lpe_huffman_generate_binary_output_stream(UINT_32*           bit_buffer, 
-	                                                         LPE_HUFFMAN_VFLAB* vflab, 
-	                                                         UINT_32            vflab_counter, 
-	                                                         LPE_HUFFMAN_VFLAB* freq_vflab, 
-	                                                         UINT_32            freq_vflab_counter,
-	                                                         UINT_32*           bits_number_holder)
+                                                             LPE_HUFFMAN_VFLAB* vflab, 
+                                                             UINT_32            vflab_counter, 
+                                                             LPE_HUFFMAN_VFLAB* freq_vflab, 
+                                                             UINT_32            freq_vflab_counter,
+                                                             UINT_32*           bits_number_holder)
 {
 	// define a loop index
 	UINT_32 i = 0;
