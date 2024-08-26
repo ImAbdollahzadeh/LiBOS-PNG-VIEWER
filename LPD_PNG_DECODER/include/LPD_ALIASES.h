@@ -13,7 +13,12 @@
 #define LPD_NULL               0x00
 #define FILTER_TYPE_BYTE       0x01
 
-#define ALIGN_4(M)             ((M+3)&(~3))
+#define LPD_ALIGN(ON, NUM) ((NUM + (ON - 1)) & (~(ON - 1)))
+#define LPD_ALIGN_0x04(NUM) LPD_ALIGN(0x04, NUM)
+#define LPD_ALIGN_0x08(NUM) LPD_ALIGN(0x08, NUM)
+#define LPD_ALIGN_0x10(NUM) LPD_ALIGN(0x10, NUM)
+#define LPD_ALIGN_0x20(NUM) LPD_ALIGN(0x20, NUM)
+#define LPD_WINDOW_ALIGN(NUM) LPD_ALIGN_0x20(NUM)
 
 typedef unsigned long long UINT_64;
 typedef unsigned int       UINT_32;

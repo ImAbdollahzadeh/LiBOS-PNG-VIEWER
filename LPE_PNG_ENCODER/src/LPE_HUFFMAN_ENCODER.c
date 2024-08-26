@@ -5,7 +5,6 @@
 #include "LPE_COMPRESSOR.h"
 #include "LPE_BITMAP_READER.h"
 #include "LPE_STRING_UNIT.h"
-#include <stdio.h>
 
 //***********************************************************************************************************
 

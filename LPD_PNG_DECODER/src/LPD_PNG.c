@@ -124,7 +124,7 @@ static BOOL lpd_parse_idat(LPD_PNG* png, UINT_32 chunk_data_length, FILE* file)
 	Chunk* ch = (Chunk*)lpd_zero_allocation(sizeof(Chunk));
 
 	// extract the data into a 4-byte aligned buffer
-	UINT_8* data_buffer = (UINT_8*)lpd_zero_allocation( ALIGN_4(chunk_data_length) + 6 );
+	UINT_8* data_buffer = (UINT_8*)lpd_zero_allocation( LPD_ALIGN_0x04(chunk_data_length) + 6 );
 	fread(data_buffer, chunk_data_length, 1, file);
 
 	// fill up the defined Chunk structure

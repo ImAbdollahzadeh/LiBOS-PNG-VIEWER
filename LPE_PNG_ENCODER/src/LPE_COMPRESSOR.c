@@ -16,7 +16,6 @@
 #include "LPE_PNG.h"
 #include "LPE_LZ77_ENCODER.h"
 #include "LPE_HUFFMAN_ENCODER.h"
-#include <stdio.h>
 
 //***********************************************************************************************************
 

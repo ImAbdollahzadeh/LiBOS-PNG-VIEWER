@@ -4,6 +4,7 @@
         "lpe_stream_writer.h": "c",
         "cstdio": "c",
         "lpe_aliases.h": "c",
-        "stdio.h": "c"
+        "stdio.h": "c",
+        "lpe_filterizer.h": "c"
     }
 }

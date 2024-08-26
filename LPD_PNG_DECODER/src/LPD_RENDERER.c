@@ -82,7 +82,7 @@ HBITMAP lpd_create_bmp(HDC dc, void* fb)
 	HBITMAP hbitmap             = CreateDIBSection(dc, &bmi, DIB_RGB_COLORS, (void**)&fb_ptr, 0, 0);
 	UINT_64* dst                = (UINT_64*)fb_ptr;
 	UINT_64* org                = (UINT_64*)fb;
-	INT_32 step                 = WINDOW_ALIGN(lpd_width * lpd_scale_factor * lpd_height * lpd_scale_factor * lpd_bpp);
+	INT_32 step                 = LPD_WINDOW_ALIGN(lpd_width * lpd_scale_factor * lpd_height * lpd_scale_factor * lpd_bpp);
 	do { *dst++ = *org++; } while (step -= 8);
 	return hbitmap;
 }
@@ -168,7 +168,7 @@ void lpd_strech_blit(HWND hwnd, void* buffer)
 	UINT_32 new_height = lpd_height * lpd_scale_factor;
 
 	// allocate memory for the streched image
-	UINT_8* streched_image = (UINT_8*)lpd_zero_allocation(WINDOW_ALIGN(new_width * new_height * lpd_bpp));
+	UINT_8* streched_image = (UINT_8*)lpd_zero_allocation(LPD_WINDOW_ALIGN(new_width * new_height * lpd_bpp));
 
 	// in each row get the pixel r, g, and b values and extend it to a block of (scale_factor * scale_factor)
 	UINT_8* image = (UINT_8*)buffer;

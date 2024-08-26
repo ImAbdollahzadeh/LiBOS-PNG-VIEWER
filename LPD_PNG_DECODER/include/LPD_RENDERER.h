@@ -17,10 +17,6 @@
 
 //***********************************************************************************************************
 
-#define WINDOW_ALIGN(X) ((X+31)&~31)
-
-//***********************************************************************************************************
-
 #define LPD_RENDERER_SWAP_BYTES(__LPD_RENDERER_BYTE1_, __LPD_RENDERER_BYTE2_) do { \
 	UINT_8 __LPD_RENDERER_TMP_ = __LPD_RENDERER_BYTE1_;                            \
 	__LPD_RENDERER_BYTE1_      = __LPD_RENDERER_BYTE2_;                            \

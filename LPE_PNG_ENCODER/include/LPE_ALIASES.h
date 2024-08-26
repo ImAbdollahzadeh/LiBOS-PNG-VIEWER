@@ -26,7 +26,12 @@
 
 //***********************************************************************************************************
 
-#define ALIGN_4(M) ((M+3)&(~3))
+#define LPE_ALIGN(ON, NUM) ((NUM + (ON - 1)) & (~(ON - 1)))
+#define LPE_ALIGN_0x04(NUM) LPE_ALIGN(0x04, NUM)
+#define LPE_ALIGN_0x08(NUM) LPE_ALIGN(0x08, NUM)
+#define LPE_ALIGN_0x10(NUM) LPE_ALIGN(0x10, NUM)
+#define LPE_ALIGN_0x20(NUM) LPE_ALIGN(0x20, NUM)
+#define LPE_WINDOW_ALIGN(NUM) LPE_ALIGN_0x20(NUM)
 
 //***********************************************************************************************************
 

@@ -8,7 +8,6 @@
 #pragma warning(disable:4996)
 #pragma warning(disable:4244)
 #define _CRT_SECURE_NO_WARNINGS
-#define WINDOW_ALIGN(X) ((X+31)&~31)
 
 //***********************************************************************************************************
 
@@ -36,7 +35,7 @@ void bitmap_reader_parse_bmp_file(const char* address_of_bmp)
 	__bmp_height         = *(UINT_32*)&info[22];
 	__bmp_byte_per_pixel = __bmp_bitdepth = (*(UINT_8 *)&info[28]) >> 3;
 	__bmp_colortype      = 2;
-	UINT_32 size         = WINDOW_ALIGN((__bmp_width * __bmp_height * __bmp_byte_per_pixel));
+	UINT_32 size         = LPE_WINDOW_ALIGN((__bmp_width * __bmp_height * __bmp_byte_per_pixel));
 	__bmp_data           = (UINT_8*)lpe_zero_allocation(size);
 	fread(__bmp_data, sizeof(UINT_8), size, f);
 	fclose(f);
