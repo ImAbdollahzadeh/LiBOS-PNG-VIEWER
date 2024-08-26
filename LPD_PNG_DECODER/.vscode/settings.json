@@ -1,5 +1,6 @@
 {
     "files.associations": {
-        "lpd_renderer.h": "c"
+        "lpd_renderer.h": "c",
+        "stdlib.h": "c"
     }
 }

@@ -1,8 +1,12 @@
+//***********************************************************************************************************
+
 #include "LPD_DECOMPRESSOR.h"
 #include "LPD_PNG.h"
 #include <stdio.h>
 
-static BOOL      first_fixed_huffman_call = TRUE;
+//***********************************************************************************************************
+
+static BOOL      first_fixed_huffman_call = LPD_TRUE;
 static LPD_FIXED fix_data;
 static UINT_8    fixed_literal_length_buffer_bitlen[288];
 static UINT_8    fixed_distance_buffer_bitlen      [30];
@@ -218,7 +222,7 @@ void lpd_decompress_zlib_buffer_dynamic(LPD_PNG* png, LPD_BIT_STREAM* bits)
 void lpd_decompress_zlib_buffer_fixed(LPD_PNG* png, LPD_BIT_STREAM* bits)
 {
 	// ********* fixed trees construction method *********
-	if (first_fixed_huffman_call == TRUE)
+	if (first_fixed_huffman_call == LPD_TRUE)
 	{
 		// prepare the LPD_FIXED data and the two fixed bitlen buffers
 		memset(&fix_data, 0, sizeof(LPD_FIXED));
@@ -243,7 +247,7 @@ void lpd_decompress_zlib_buffer_fixed(LPD_PNG* png, LPD_BIT_STREAM* bits)
 		fix_data.distance_tree = lpd_construct_huffman_tree(fixed_distance_buffer_bitlen, 30);
 
 		// the fixed huffman trees have been constructed, thus, never call the fixed trees construction again
-		first_fixed_huffman_call = FALSE;
+		first_fixed_huffman_call = LPD_FALSE;
 	}
 
 	// decompress the current block like that of dynamic huffman
@@ -514,7 +518,7 @@ void lpd_deflate_block(LPD_PNG*        png,
 	UINT_32 count             = 0;
 
 	// loop forever until an EOI (a.k.a. 256) is found
-	while (TRUE)
+	while (LPD_TRUE)
 	{
 		// obtain the literal/length decoded value
 		UINT_32 decoded_value = lpd_decode_huffman_tree(bits, literal_tree, literal_bitlen, literal_array_length);
@@ -582,9 +586,9 @@ BOOL lpd_is_adler32(UINT_8* buffer) // < ======================= UNCOMPLETE ====
 	if (1)
 	{
 		// TODO ...
-		return TRUE;
+		return LPD_TRUE;
 	}
-	return FALSE;
+	return LPD_FALSE;
 }
 
 //***********************************************************************************************************

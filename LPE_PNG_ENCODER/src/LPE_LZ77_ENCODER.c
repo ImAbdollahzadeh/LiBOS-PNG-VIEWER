@@ -69,7 +69,7 @@ lz77_local BOOL lpe_lz77_search_buffer_contains_this_word(UINT_8* search_buffer,
 		*ref = start_of_combination;
 		
 		// return
-		return TRUE;
+		return LPE_TRUE;
 
 // set a label
 _lpe_lz77_search_buffer_contains_this_word_skip_to_the_next_combination:
@@ -81,7 +81,7 @@ _lpe_lz77_search_buffer_contains_this_word_skip_to_the_next_combination:
 	}
 
 	// if we made up until here, there was no matched combination in the SB for the provided LAB's word
-	return FALSE;
+	return LPE_FALSE;
 }
 
 //***********************************************************************************************************
@@ -133,7 +133,7 @@ lz77_local UINT_32 lpe_lz77_find_longest_match(LPE_SLIDING_WINDOW* sw)
 		UINT_32 look_ahead_buffer_word_size = lpe_lz77_string_length(look_ahead_buffer_word);
 
 		// define a boolean dafaulted to false 
-		BOOL contain = FALSE;
+		BOOL contain = LPE_FALSE;
 
 		// define a place holder for the reference of the matched word in the SB, if any
 		UINT_32 reference = ~0;
@@ -143,7 +143,7 @@ lz77_local UINT_32 lpe_lz77_find_longest_match(LPE_SLIDING_WINDOW* sw)
 			contain = lpe_lz77_search_buffer_contains_this_word(search_buffer_end, look_ahead_buffer_word, search_buffer_size, look_ahead_buffer_word_size, &reference);
 
 		// in case the length of the constructed word is greater than 3 and the SB showed that it contains such a word, proceed
-		if ((look_ahead_buffer_word_size > LPE_LZ77_LOOK_AHEAD_BUFFER_MIN_ACCEPTED_SIZE) && (contain == TRUE))
+		if ((look_ahead_buffer_word_size > LPE_LZ77_LOOK_AHEAD_BUFFER_MIN_ACCEPTED_SIZE) && (contain == LPE_TRUE))
 		{
 			// is this word still growing or stops here
 			if (look_ahead_buffer_word_size > longest_match)

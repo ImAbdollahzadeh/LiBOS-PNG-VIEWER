@@ -1,6 +1,8 @@
 #ifndef _LPE_HUFFMAN_ENCODER__H__
 #define _LPE_HUFFMAN_ENCODER__H__
 
+//***********************************************************************************************************
+
 #include "LPE_ALIASES.h"
 #include "LPE_LZ77_ENCODER.h"
 
@@ -19,7 +21,6 @@
 #define LPE_HUFFMAN_NO_COMPRESSION_METHOD      ((0b00) << 1)
 #define LPE_HUFFMAN_FIXED_HUFFMAN_METHOD       ((0b01) << 1)
 #define LPE_HUFFMAN_DYNAMIC_HUFFMAN_METHOD     ((0b10) << 1)
-
 
 //***********************************************************************************************************
 
@@ -50,6 +51,8 @@ typedef struct _LPE_HUFFMAN_VFLAB {
 	UINT_8  level;
 	UINT_16 assigned_reversed_bits;
 } LPE_HUFFMAN_VFLAB;
+
+//***********************************************************************************************************
 
 typedef struct _LPE_HUFFMAN_EXTRA_BITS {
 	UINT_32 bit_count;

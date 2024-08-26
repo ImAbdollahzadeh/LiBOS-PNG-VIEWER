@@ -1,6 +1,8 @@
 #ifndef _LPE_PNG__H__
 #define _LPE_PNG__H__
 
+//***********************************************************************************************************
+
 #include "LPE_ALIASES.h"
 #include "LPE_STREAM_WRITER.h"
 
@@ -28,8 +30,12 @@ typedef enum _LPE_MARKER {
 	LPE_hIST = 'hIST',
 } LPE_MARKER;
 
+//***********************************************************************************************************
+
 static const char* lpe_writer_comment = "Created by LiBOS_PNG_ENCODER (LPE) written by Iman Abdollahzadeh";
 static const char* lpe_keyword        = "Information: ";
+
+//***********************************************************************************************************
 
 #pragma pack(push, 1)
 typedef struct _IHDR {
@@ -43,11 +49,15 @@ typedef struct _IHDR {
 } IHDR;
 #pragma pack(pop)
 
+//***********************************************************************************************************
+
 #pragma pack(push, 1)
 typedef struct _IDAT {
 	UINT_8* data;
 } IDAT;
 #pragma pack(pop)
+
+//***********************************************************************************************************
 
 #pragma pack(push, 1)
 typedef struct _tEXt {
@@ -57,11 +67,15 @@ typedef struct _tEXt {
 } tEXt;
 #pragma pack(pop)
 
+//***********************************************************************************************************
+
 #pragma pack(push, 1)
 typedef struct _IEND { 
 	UINT_32 nothing;
 } IEND;
 #pragma pack(pop)
+
+//***********************************************************************************************************
 
 #pragma pack(push, 1)
 typedef struct _LPE_CHUNK {
@@ -71,6 +85,8 @@ typedef struct _LPE_CHUNK {
 	UINT_32      crc;
 } LPE_CHUNK;
 #pragma pack(pop)
+
+//***********************************************************************************************************
 
 typedef struct _LPE_PNG {
 	UINT_8  signature[8];

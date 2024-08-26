@@ -265,7 +265,7 @@ void lpe_ihdr_writer(LPE_STREAM_WRITER* stream_writer, IHDR* ihdr)
 	memcpy(buffer, &ihdr_marker, sizeof(LPE_MARKER));
 
 	// copy ch.chunk_data into the rest
-	memcpy((void*)(PHYSICAL_ADDRESS_32(buffer) + sizeof(LPE_MARKER)), ch.chunk_data, sizeof(IHDR));
+	memcpy((void*)(LPE_PHYSICAL_ADDRESS_32(buffer) + sizeof(LPE_MARKER)), ch.chunk_data, sizeof(IHDR));
 
 	// now calculate the CRC32 of IHDR chunk
 	ch.crc = lpe_calculate_crc(buffer, sizeof(LPE_MARKER) + sizeof(IHDR));
@@ -333,7 +333,7 @@ void lpe_text_writer(LPE_STREAM_WRITER* stream_writer, tEXt* text)
 	memcpy(buffer, &text_marker, sizeof(LPE_MARKER));
 
 	// copy ch.chunk_data into the rest
-	memcpy((void*)(PHYSICAL_ADDRESS_32(buffer) + sizeof(LPE_MARKER)), ch.chunk_data, ch.data_length);
+	memcpy((void*)(LPE_PHYSICAL_ADDRESS_32(buffer) + sizeof(LPE_MARKER)), ch.chunk_data, ch.data_length);
 
 	// now calculate the CRC32 of tEXt chunk
 	ch.crc = lpe_calculate_crc(buffer, sizeof(LPE_MARKER) + ch.data_length);

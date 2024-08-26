@@ -1,12 +1,8 @@
+//***********************************************************************************************************
+
 #include "LPD_PNG.h"
 #include "LPD_STRING_UNIT.h"
 #include "LPD_DECOMPRESSOR.h"
-#include <stdio.h>
-
-//***********************************************************************************************************
-
-#define _CRT_SECURE_NO_WARNINGS
-#pragma warning(disable:4996)
 
 //***********************************************************************************************************
 
@@ -63,7 +59,7 @@ static BOOL lpd_calculate_crc32(UINT_32 crc)
 {
 	// TODO .....
 
-	return TRUE;
+	return LPD_TRUE;
 }
 
 //***********************************************************************************************************
@@ -89,7 +85,7 @@ static BOOL lpd_parse_ihdr(LPD_PNG* png, UINT_32 chunk_data_length, FILE* file)
 		lpd_free_allocated_mem(ch);
 		lpd_free_allocated_mem(data_buffer);
 		printf("calculation of crc32 failed --> fatal error\n");
-		return FALSE;
+		return LPD_FALSE;
 	}
 
 	// start the png->chunks_table
@@ -113,7 +109,7 @@ static BOOL lpd_parse_ihdr(LPD_PNG* png, UINT_32 chunk_data_length, FILE* file)
 	// free the defined chunk
 	lpd_free_allocated_mem(ch);
 
-	return TRUE;
+	return LPD_TRUE;
 }
 
 //***********************************************************************************************************
@@ -139,7 +135,7 @@ static BOOL lpd_parse_idat(LPD_PNG* png, UINT_32 chunk_data_length, FILE* file)
 		lpd_free_allocated_mem(ch);
 		lpd_free_allocated_mem(data_buffer);
 		printf("calculation of crc32 failed --> fatal error\n");
-		return FALSE;
+		return LPD_FALSE;
 	}
 
 	// reallocate the png->chunks_table
@@ -173,7 +169,7 @@ static BOOL lpd_parse_idat(LPD_PNG* png, UINT_32 chunk_data_length, FILE* file)
 	// free the defined chunk
 	lpd_free_allocated_mem(ch);
 
-	return TRUE;
+	return LPD_TRUE;
 }
 
 //***********************************************************************************************************
@@ -199,7 +195,7 @@ static BOOL lpd_parse_plte(LPD_PNG* png, UINT_32 chunk_data_length, FILE* file)
 		lpd_free_allocated_mem(ch);
 		lpd_free_allocated_mem(data_buffer);
 		printf("calculation of crc32 failed --> fatal error\n");
-		return FALSE;
+		return LPD_FALSE;
 	}
 
 	// reallocate the png->chunks_table
@@ -217,7 +213,7 @@ static BOOL lpd_parse_plte(LPD_PNG* png, UINT_32 chunk_data_length, FILE* file)
 	// free the defined chunk
 	lpd_free_allocated_mem(ch);
 
-	return TRUE;
+	return LPD_TRUE;
 }
 
 //***********************************************************************************************************
@@ -243,7 +239,7 @@ static BOOL lpd_parse_srgb(LPD_PNG* png, UINT_32 chunk_data_length, FILE* file)
 		lpd_free_allocated_mem(ch);
 		lpd_free_allocated_mem(data_buffer);
 		printf("calculation of crc32 failed --> fatal error\n");
-		return FALSE;
+		return LPD_FALSE;
 	}
 
 	// reallocate the png->chunks_table
@@ -267,7 +263,7 @@ static BOOL lpd_parse_srgb(LPD_PNG* png, UINT_32 chunk_data_length, FILE* file)
 	// free the defined chunk
 	lpd_free_allocated_mem(ch);
 
-	return TRUE;
+	return LPD_TRUE;
 }
 
 //***********************************************************************************************************
@@ -293,7 +289,7 @@ static BOOL lpd_parse_gama(LPD_PNG* png, UINT_32 chunk_data_length, FILE* file)
 		lpd_free_allocated_mem(ch);
 		lpd_free_allocated_mem(data_buffer);
 		printf("calculation of crc32 failed --> fatal error\n");
-		return FALSE;
+		return LPD_FALSE;
 	}
 
 	// reallocate the png->chunks_table
@@ -309,7 +305,7 @@ static BOOL lpd_parse_gama(LPD_PNG* png, UINT_32 chunk_data_length, FILE* file)
 	// free the defined chunk
 	lpd_free_allocated_mem(ch);
 
-	return TRUE;
+	return LPD_TRUE;
 }
 
 //***********************************************************************************************************
@@ -335,7 +331,7 @@ static BOOL lpd_parse_chrm(LPD_PNG* png, UINT_32 chunk_data_length, FILE* file)
 		lpd_free_allocated_mem(ch);
 		lpd_free_allocated_mem(data_buffer);
 		printf("calculation of crc32 failed --> fatal error\n");
-		return FALSE;
+		return LPD_FALSE;
 	}
 
 	// reallocate the png->chunks_table
@@ -358,7 +354,7 @@ static BOOL lpd_parse_chrm(LPD_PNG* png, UINT_32 chunk_data_length, FILE* file)
 	// free the defined chunk
 	lpd_free_allocated_mem(ch); 
 	
-	return TRUE;
+	return LPD_TRUE;
 }
 
 //***********************************************************************************************************
@@ -384,7 +380,7 @@ static BOOL lpd_parse_phys(LPD_PNG* png, UINT_32 chunk_data_length, FILE* file)
 		lpd_free_allocated_mem(ch);
 		lpd_free_allocated_mem(data_buffer);
 		printf("calculation of crc32 failed --> fatal error\n");
-		return FALSE;
+		return LPD_FALSE;
 	}
 
 	// reallocate the png->chunks_table
@@ -402,7 +398,7 @@ static BOOL lpd_parse_phys(LPD_PNG* png, UINT_32 chunk_data_length, FILE* file)
 	// free the defined chunk
 	lpd_free_allocated_mem(ch);
 
-	return TRUE;
+	return LPD_TRUE;
 }
 
 //***********************************************************************************************************
@@ -428,7 +424,7 @@ static BOOL lpd_parse_hist(LPD_PNG* png, UINT_32 chunk_data_length, FILE* file)
 		lpd_free_allocated_mem(ch);
 		lpd_free_allocated_mem(data_buffer);
 		printf("calculation of crc32 failed --> fatal error\n");
-		return FALSE;
+		return LPD_FALSE;
 	}
 
 	// reallocate the png->chunks_table
@@ -444,7 +440,7 @@ static BOOL lpd_parse_hist(LPD_PNG* png, UINT_32 chunk_data_length, FILE* file)
 	// free the defined chunk
 	lpd_free_allocated_mem(ch);
 
-	return TRUE;
+	return LPD_TRUE;
 }
 
 //***********************************************************************************************************
@@ -470,7 +466,7 @@ static BOOL lpd_parse_sbit(LPD_PNG* png, UINT_32 chunk_data_length, FILE* file)
 		lpd_free_allocated_mem(ch);
 		lpd_free_allocated_mem(data_buffer);
 		printf("calculation of crc32 failed --> fatal error\n");
-		return FALSE;
+		return LPD_FALSE;
 	}
 
 	// reallocate the png->chunks_table
@@ -487,7 +483,7 @@ static BOOL lpd_parse_sbit(LPD_PNG* png, UINT_32 chunk_data_length, FILE* file)
 	// free the defined chunk
 	lpd_free_allocated_mem(ch);
 
-	return TRUE;
+	return LPD_TRUE;
 }
 
 //***********************************************************************************************************
@@ -513,7 +509,7 @@ static BOOL lpd_parse_text(LPD_PNG* png, UINT_32 chunk_data_length, FILE* file)
 		lpd_free_allocated_mem(ch);
 		lpd_free_allocated_mem(data_buffer);
 		printf("calculation of crc32 failed --> fatal error\n");
-		return FALSE;
+		return LPD_FALSE;
 	}
 
 	// reallocate the png->chunks_table
@@ -565,7 +561,7 @@ static BOOL lpd_parse_text(LPD_PNG* png, UINT_32 chunk_data_length, FILE* file)
 	// free the defined chunk
 	lpd_free_allocated_mem(ch);
 
-	return TRUE;
+	return LPD_TRUE;
 }
 
 //***********************************************************************************************************
@@ -591,7 +587,7 @@ static BOOL lpd_parse_ztxt(LPD_PNG* png, UINT_32 chunk_data_length, FILE* file)
 		lpd_free_allocated_mem(ch);
 		lpd_free_allocated_mem(data_buffer);
 		printf("calculation of crc32 failed --> fatal error\n");
-		return FALSE;
+		return LPD_FALSE;
 	}
 
 	// reallocate the png->chunks_table
@@ -676,7 +672,7 @@ static BOOL lpd_parse_ztxt(LPD_PNG* png, UINT_32 chunk_data_length, FILE* file)
 	// free the defined chunk
 	lpd_free_allocated_mem(ch);
 
-	return TRUE;
+	return LPD_TRUE;
 }
 
 //***********************************************************************************************************
@@ -702,7 +698,7 @@ static BOOL lpd_parse_time(LPD_PNG* png, UINT_32 chunk_data_length, FILE* file)
 		lpd_free_allocated_mem(ch);
 		lpd_free_allocated_mem(data_buffer);
 		printf("calculation of crc32 failed --> fatal error\n");
-		return FALSE;
+		return LPD_FALSE;
 	}
 
 	// reallocate the png->chunks_table
@@ -723,7 +719,7 @@ static BOOL lpd_parse_time(LPD_PNG* png, UINT_32 chunk_data_length, FILE* file)
 	// free the defined chunk
 	lpd_free_allocated_mem(ch);
 
-	return TRUE;
+	return LPD_TRUE;
 }
 
 //***********************************************************************************************************
@@ -749,7 +745,7 @@ static BOOL lpd_parse_bkgd(LPD_PNG* png, UINT_32 chunk_data_length, FILE* file)
 		lpd_free_allocated_mem(ch);
 		lpd_free_allocated_mem(data_buffer);
 		printf("calculation of crc32 failed --> fatal error\n");
-		return FALSE;
+		return LPD_FALSE;
 	}
 
 	// reallocate the png->chunks_table
@@ -769,7 +765,7 @@ static BOOL lpd_parse_bkgd(LPD_PNG* png, UINT_32 chunk_data_length, FILE* file)
 	// free the defined chunk
 	lpd_free_allocated_mem(ch);
 
-	return TRUE;
+	return LPD_TRUE;
 }
 
 //***********************************************************************************************************
@@ -795,7 +791,7 @@ static BOOL lpd_parse_undefined(LPD_PNG* png, UINT_32 chunk_data_length, FILE* f
 		lpd_free_allocated_mem(ch);
 		lpd_free_allocated_mem(data_buffer);
 		printf("calculation of crc32 failed --> fatal error\n");
-		return FALSE;
+		return LPD_FALSE;
 	}
 
 	// reallocate the png->chunks_table
@@ -810,7 +806,7 @@ static BOOL lpd_parse_undefined(LPD_PNG* png, UINT_32 chunk_data_length, FILE* f
 	// free the defined chunk
 	lpd_free_allocated_mem(ch);
 
-	return TRUE;
+	return LPD_TRUE;
 }
 
 //***********************************************************************************************************
@@ -834,7 +830,7 @@ UINT_32 lpd_read_a_chunk(LPD_PNG* png, FILE* file)
 		if (!lpd_parse_ihdr(png, data_length, file))
 		{
 			printf("parsing the IHDR chunk failed --> fatal error\n");
-			return ERROR_ID;
+			return LPD_ERROR_ID;
 		}
 		png->number_of_chunks++;
 		return IHDR_ID;
@@ -845,7 +841,7 @@ UINT_32 lpd_read_a_chunk(LPD_PNG* png, FILE* file)
 		if (!lpd_parse_idat(png, data_length, file))
 		{
 			printf("parsing the IDAT chunk failed --> fatal error\n");
-			return ERROR_ID;
+			return LPD_ERROR_ID;
 		}
 		png->number_of_chunks++;
 		return IDAT_ID;
@@ -853,7 +849,7 @@ UINT_32 lpd_read_a_chunk(LPD_PNG* png, FILE* file)
 		if (!lpd_parse_plte(png, data_length, file))
 		{
 			printf("parsing the PLTE chunk failed --> fatal error\n");
-			return ERROR_ID;
+			return LPD_ERROR_ID;
 		}
 		png->number_of_chunks++;
 		return PLTE_ID;
@@ -861,7 +857,7 @@ UINT_32 lpd_read_a_chunk(LPD_PNG* png, FILE* file)
 		if (!lpd_parse_srgb(png, data_length, file))
 		{
 			printf("parsing the sRGB chunk failed --> fatal error\n");
-			return ERROR_ID;
+			return LPD_ERROR_ID;
 		}
 		png->number_of_chunks++;
 		return sRGB_ID;
@@ -869,7 +865,7 @@ UINT_32 lpd_read_a_chunk(LPD_PNG* png, FILE* file)
 		if (!lpd_parse_bkgd(png, data_length, file))
 		{
 			printf("parsing the bKGD chunk failed --> fatal error\n");
-			return ERROR_ID;
+			return LPD_ERROR_ID;
 		}
 		png->number_of_chunks++;
 		return bKGD_ID;
@@ -877,7 +873,7 @@ UINT_32 lpd_read_a_chunk(LPD_PNG* png, FILE* file)
 		if (!lpd_parse_chrm(png, data_length, file))
 		{
 			printf("parsing the cHRM chunk failed --> fatal error\n");
-			return ERROR_ID;
+			return LPD_ERROR_ID;
 		}
 		png->number_of_chunks++;
 		return cHRM_ID;
@@ -885,7 +881,7 @@ UINT_32 lpd_read_a_chunk(LPD_PNG* png, FILE* file)
 		if (!lpd_parse_gama(png, data_length, file))
 		{
 			printf("parsing the gAMA chunk failed --> fatal error\n");
-			return ERROR_ID;
+			return LPD_ERROR_ID;
 		}
 		png->number_of_chunks++;
 		return gAMA_ID;
@@ -893,7 +889,7 @@ UINT_32 lpd_read_a_chunk(LPD_PNG* png, FILE* file)
 		if (!lpd_parse_sbit(png, data_length, file))
 		{
 			printf("parsing the sBIT chunk failed --> fatal error\n");
-			return ERROR_ID;
+			return LPD_ERROR_ID;
 		}
 		png->number_of_chunks++;
 		return sBIT_ID;
@@ -901,7 +897,7 @@ UINT_32 lpd_read_a_chunk(LPD_PNG* png, FILE* file)
 		if (!lpd_parse_ztxt(png, data_length, file))
 		{
 			printf("parsing the zTXt chunk failed --> fatal error\n");
-			return ERROR_ID;
+			return LPD_ERROR_ID;
 		}
 		png->number_of_chunks++;
 		return zTXt_ID;
@@ -909,7 +905,7 @@ UINT_32 lpd_read_a_chunk(LPD_PNG* png, FILE* file)
 		if (!lpd_parse_text(png, data_length, file))
 		{
 			printf("parsing the tEXt chunk failed --> fatal error\n");
-			return ERROR_ID;
+			return LPD_ERROR_ID;
 		}
 		png->number_of_chunks++;
 		return tEXt_ID;
@@ -917,7 +913,7 @@ UINT_32 lpd_read_a_chunk(LPD_PNG* png, FILE* file)
 		if (!lpd_parse_time(png, data_length, file))
 		{
 			printf("parsing the tIME chunk failed --> fatal error\n");
-			return ERROR_ID;
+			return LPD_ERROR_ID;
 		}
 		png->number_of_chunks++;
 		return tIME_ID;
@@ -925,7 +921,7 @@ UINT_32 lpd_read_a_chunk(LPD_PNG* png, FILE* file)
 		if (!lpd_parse_phys(png, data_length, file))
 		{
 			printf("parsing the pHYs chunk failed --> fatal error\n");
-			return ERROR_ID;
+			return LPD_ERROR_ID;
 		}
 		png->number_of_chunks++;
 		return pHYs_ID;
@@ -933,16 +929,16 @@ UINT_32 lpd_read_a_chunk(LPD_PNG* png, FILE* file)
 		if (!lpd_parse_hist(png, data_length, file))
 		{
 			printf("parsing the hIST chunk failed --> fatal error\n");
-			return ERROR_ID;
+			return LPD_ERROR_ID;
 		}
 		png->number_of_chunks++;
 		return hIST_ID;
-	case UNDEFINED_MARKER_FOUND:
+	case LPD_UNDEFINED_MARKER:
 		printf("An undefined marker found which cannot be handeled\n");
 		if (!lpd_parse_undefined(png, data_length, file))
 		{
 			printf("parsing the UNDF chunk failed --> fatal error\n");
-			return ERROR_ID;
+			return LPD_ERROR_ID;
 		}
 		png->number_of_chunks++;
 		return UNDF_ID;
@@ -976,14 +972,14 @@ BOOL lpd_read_png_file(LPD_PNG* png, const char* file_address)
 	// open the file handle
 	FILE* file = fopen(file_address, "rb");
 	if (!file) 
-		return FALSE;
+		return LPD_FALSE;
 
 	// check out the signature of the file
 	fread(png->signature, 1, 8, file);
 	print_signature(png->signature);
 
 	// read chunk by chunk into the png buffer until everything has been read
-	UINT_32 this_chunk = ERROR_ID;
+	UINT_32 this_chunk = LPD_ERROR_ID;
 
 	// hang around until hitting the IEND marker
 	while (this_chunk != IEND_ID)
@@ -991,11 +987,11 @@ BOOL lpd_read_png_file(LPD_PNG* png, const char* file_address)
 		this_chunk = lpd_read_a_chunk(png, file);
 
 		// an error id, clean up the png buffer, close the file handle, and return FALSE
-		if (this_chunk == ERROR_ID)
+		if (this_chunk == LPD_ERROR_ID)
 		{
 			fclose(file);
 			lpd_clean_up_the_png(png);
-			return FALSE;
+			return LPD_FALSE;
 		}
 	}
 
@@ -1003,7 +999,7 @@ BOOL lpd_read_png_file(LPD_PNG* png, const char* file_address)
 	fclose(file);
 
 	// return the TRUE result
-	return TRUE;
+	return LPD_TRUE;
 }
 
 //***********************************************************************************************************

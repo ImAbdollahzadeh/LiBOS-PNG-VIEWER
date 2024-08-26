@@ -1,18 +1,28 @@
 #ifndef _LPD_DECOMPRESSOR__H__
 #define _LPD_DECOMPRESSOR__H__
 
+//***********************************************************************************************************
+
 #include "LPD_ALIASES.h"
 #include "LPD_PNG.h"
+
+//***********************************************************************************************************
 
 #define local_function static 
 #define callable
 
+//***********************************************************************************************************
+
 #define BITS_DEBUG 0
 #define zTXt_DECOMPRESSION_DEBUG 0
+
+//***********************************************************************************************************
 
 static const char* fix = "fixed huffman";
 static const char* dyn = "dynamic huffman";
 static const char* noc = "no compression";
+
+//***********************************************************************************************************
 
 enum {
 	NO_COMPRESSION    = 0,
@@ -20,6 +30,8 @@ enum {
 	DYNAMIC_HUFFMANN  = 2,
 	ERROR_COMPRESSION = 3
 };
+
+//***********************************************************************************************************
 
 static UINT_8 lengths_table_extra_bits[] = {
 	0, 0, 0, 0, 0, 0, 0, 0, //257 - 264
@@ -30,6 +42,9 @@ static UINT_8 lengths_table_extra_bits[] = {
 	5, 5, 5, 5,             //281 - 284
 	0                       //285
 };
+
+//***********************************************************************************************************
+
 static UINT_32 lengths_table[] = {
 	3, 4, 5, 6, 7, 8, 9, 10, //257 - 264
 	11, 13, 15, 17,          //265 - 268
@@ -39,6 +54,9 @@ static UINT_32 lengths_table[] = {
 	131, 163, 195, 227,      //281 - 284
 	258                      //285
 };
+
+//***********************************************************************************************************
+
 static UINT_32 distance_table[] = {
 	/*00*/ 1, 2, 3, 4,   //0-3
 	/*01*/ 5, 7,         //4-5
@@ -56,6 +74,9 @@ static UINT_32 distance_table[] = {
 	/*13*/ 16385, 24577, //28-29
 	0 , 0                //30-31 error, they can not be used
 };
+
+//***********************************************************************************************************
+
 static UINT_32 distance_table_extra_bits[] = {
 	/*00*/ 0, 0, 0, 0, //0-3
 	/*01*/ 1, 1,       //4-5
@@ -83,6 +104,8 @@ typedef struct _LPD_BIT_STREAM {
 	UINT_8   debug_byte_border;
 } LPD_BIT_STREAM;
 
+//***********************************************************************************************************
+
 typedef struct _LPD_FIXED {
 	UINT_32* literal_length_tree; //[288];
 	UINT_32* distance_tree      ; //[30];
@@ -108,4 +131,6 @@ callable       void     lpd_decompress_zlib_buffer                (LPD_PNG* png,
 callable       void     lpd_compression_info                      (UINT_8* buffer);
 callable       BOOL     lpd_is_adler32                            (UINT_8* buffer);
 
-#endif
+//***********************************************************************************************************
+
+#endif // !_LPD_DECOMPRESSOR__H__

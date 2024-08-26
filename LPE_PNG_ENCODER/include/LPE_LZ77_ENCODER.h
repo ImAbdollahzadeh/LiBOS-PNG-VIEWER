@@ -1,6 +1,8 @@
 #ifndef _LPE_LZ77_ENCODER__H__
 #define _LPE_LZ77_ENCODER__H__
 
+//***********************************************************************************************************
+
 #include "LPE_ALIASES.h"
 
 //***********************************************************************************************************
@@ -35,17 +37,23 @@ typedef struct _LPE_LZ77_BUFFER {
 	UINT_32 buffer_size;
 } LPE_LZ77_BUFFER;
 
+//***********************************************************************************************************
+
 typedef struct _LPE_SLIDING_WINDOW {
 	UINT_8* look_ahead_buffer;
 	UINT_8* search_buffer_end;
 	UINT_32 search_buffer_size;
 } LPE_SLIDING_WINDOW;
 
+//***********************************************************************************************************
+
 typedef struct _LPE_LZ77_DICTIONARY_WORD {
 	UINT_32 distance_of_reference_from_the_origin;
 	UINT_32 distance_of_word_from_the_origin;
 	UINT_32 length_of_matched_word;
 } LPE_LZ77_DICTIONARY_WORD;
+
+//***********************************************************************************************************
 
 typedef struct _LPE_LZ77_LZ77_OUTPUT_PACKAGE {
 	void*   litlen_buffer;

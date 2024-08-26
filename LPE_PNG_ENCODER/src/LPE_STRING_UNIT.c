@@ -14,10 +14,10 @@ BOOL lpe_png_strcmp(const char* str1, const char* str2)
 	while (sz < 4)
 	{
 		if (str1[sz] != str2[sz])
-			return FALSE;
+			return LPE_FALSE;
 		sz++;
 	}
-	return TRUE;
+	return LPE_TRUE;
 }
 
 //***********************************************************************************************************

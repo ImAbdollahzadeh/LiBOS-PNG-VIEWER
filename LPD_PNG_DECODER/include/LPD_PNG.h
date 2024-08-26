@@ -1,7 +1,11 @@
 #ifndef _LPD_PNG__H__
 #define _LPD_PNG__H__
 
+//***********************************************************************************************************
+
 #include "LPD_ALIASES.h"
+
+//***********************************************************************************************************
 
 #pragma pack(push, 1)
 typedef struct _IHDR {
@@ -15,11 +19,15 @@ typedef struct _IHDR {
 } IHDR;
 #pragma pack(pop)
 
+//***********************************************************************************************************
+
 #pragma pack(push, 1)
 typedef struct _IDAT {
 	UINT_8* data;
 } IDAT;
 #pragma pack(pop)
+
+//***********************************************************************************************************
 
 #pragma pack(push, 1)
 typedef struct _PLTE {
@@ -29,11 +37,15 @@ typedef struct _PLTE {
 } PLTE;
 #pragma pack(pop)
 
+//***********************************************************************************************************
+
 #pragma pack(push, 1)
 typedef struct _sRGB {
 	UINT_8 rendering_intent;
 } sRGB;
 #pragma pack(pop)
+
+//***********************************************************************************************************
 
 #pragma pack(push, 1)
 typedef struct _bKGD {
@@ -44,6 +56,8 @@ typedef struct _bKGD {
 	UINT_16 blue;
 } bKGD;
 #pragma pack(pop)
+
+//***********************************************************************************************************
 
 #pragma pack(push, 1)
 typedef struct _cHRM {
@@ -58,11 +72,15 @@ typedef struct _cHRM {
 } cHRM;
 #pragma pack(pop)
 
+//***********************************************************************************************************
+
 #pragma pack(push, 1)
 typedef struct _gAMA {
 	UINT_32 image_gamma;
 } gAMA;
 #pragma pack(pop)
+
+//***********************************************************************************************************
 
 #pragma pack(push, 1)
 typedef struct _sBIT {
@@ -70,6 +88,8 @@ typedef struct _sBIT {
 	UINT_8* significant_bits;
 } sBIT;
 #pragma pack(pop)
+
+//***********************************************************************************************************
 
 #pragma pack(push, 1)
 typedef struct _zTXt {
@@ -81,6 +101,8 @@ typedef struct _zTXt {
 } zTXt;
 #pragma pack(pop)
 
+//***********************************************************************************************************
+
 #pragma pack(push, 1)
 typedef struct _tEXt {
 	UINT_8* uncompressed_buffer;
@@ -89,6 +111,8 @@ typedef struct _tEXt {
 	// Nbytes -> text
 } tEXt;
 #pragma pack(pop)
+
+//***********************************************************************************************************
 
 #pragma pack(push, 1)
 typedef struct _tIME {
@@ -101,6 +125,8 @@ typedef struct _tIME {
 } tIME;
 #pragma pack(pop)
 
+//***********************************************************************************************************
+
 #pragma pack(push, 1)
 typedef struct _pHYs {
 	UINT_32 pixels_per_unit_x;
@@ -109,15 +135,21 @@ typedef struct _pHYs {
 } pHYs;
 #pragma pack(pop)
 
+//***********************************************************************************************************
+
 #pragma pack(push, 1)
 typedef struct _tRNS {
 	UINT_8* alphas;
 } tRNS;
 #pragma pack(pop)
 
+//***********************************************************************************************************
+
 typedef struct _hIST {
 	UINT_16* serie;
 } hIST;
+
+//***********************************************************************************************************
 
 #pragma pack(push, 1)
 typedef struct _Chunk {
@@ -127,6 +159,8 @@ typedef struct _Chunk {
 	UINT_32      crc;
 } Chunk;
 #pragma pack(pop)
+
+//***********************************************************************************************************
 
 #pragma pack(push, 1)
 typedef struct _LPD_PNG {
@@ -148,6 +182,8 @@ typedef struct _LPD_PNG {
 } LPD_PNG;
 #pragma pack(pop)
 
+//***********************************************************************************************************
+
 UINT_32 lpd_png_find_size                        (const char* file_address);
 BOOL    lpd_read_png_file                        (LPD_PNG* png, const char* file_address);
 void*   lpd_buffer_reallocation                  (void* old_pointer, UINT_32 old_size, UINT_32 new_extra_size);
@@ -156,5 +192,7 @@ void    lpd_free_allocated_mem                   (void* mem);
 void    lpd_chunk_table_report                   (LPD_PNG* png);
 void    lpd_idat_text_ztxt_chunks_counter_report (LPD_PNG* png);
 void    lpd_clean_up_the_png                     (LPD_PNG* png);
+
+//***********************************************************************************************************
 
 #endif // !_LPD_PNG__H__

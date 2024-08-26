@@ -1,4 +1,5 @@
-#include <stdio.h>
+//***********************************************************************************************************
+
 #include "LPD_ALIASES.h"
 #include "LPD_STRING_UNIT.h"
 #include "LPD_PNG.h"

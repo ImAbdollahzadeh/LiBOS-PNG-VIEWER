@@ -2,14 +2,13 @@
 
 #include "LPD_RENDERER.h"
 
-
 //***********************************************************************************************************
 
 static void*   lpd_rgb_buffer   = LPD_NULL;
 static UINT_32 lpd_width        = 0;
 static UINT_32 lpd_height       = 0;
 static UINT_8  lpd_bpp          = 0;
-static bool    lpd_strech       = false;
+static BOOL    lpd_strech       = LPD_FALSE;
 static INT_32  lpd_scale_factor = 1;
 
 //***********************************************************************************************************
@@ -51,7 +50,7 @@ void lpd_render_buffer(void* buffer, UINT_8 byte_per_pixel, IHDR* ihdr)
 	if ((lpd_width < 100) || (lpd_height < 100))
 	{
 		lpd_scale_factor = lpd_find_max((_LPD_RENDERER_STRECHED_IMAGE / lpd_width), (_LPD_RENDERER_STRECHED_IMAGE / lpd_height));
-		lpd_strech = true;
+		lpd_strech = LPD_TRUE;
 	}
 
 	// call the window entry
@@ -59,7 +58,7 @@ void lpd_render_buffer(void* buffer, UINT_8 byte_per_pixel, IHDR* ihdr)
 
 	// unload the lpd_rgb_buffer, lpd_strech, lpd_width, lpd_height, and lpd_bpp
 	lpd_rgb_buffer = LPD_NULL;
-	lpd_strech     = false;
+	lpd_strech     = LPD_FALSE;
 	lpd_width      = 0;
 	lpd_height     = 0;
 	lpd_bpp        = 0;

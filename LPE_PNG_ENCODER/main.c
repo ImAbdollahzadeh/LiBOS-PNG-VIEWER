@@ -1,5 +1,3 @@
-//***********************************************************************************************************
-
 #include "LPE_ALIASES.h"
 #include "LPE_STRING_UNIT.h"
 #include "LPE_PNG.h"
@@ -7,12 +5,6 @@
 #include "LPE_FILTERIZER.h"
 #include "LPE_STREAM_WRITER.h"
 #include "LPE_BITMAP_READER.h"
-
-//***********************************************************************************************************
-
-#define _CRT_SECURE_NO_WARNINGS
-#pragma warning(disable:4996)
-#pragma warning(disable:4715)
 
 //***********************************************************************************************************
 

@@ -5,6 +5,8 @@
         "cstdio": "c",
         "lpe_aliases.h": "c",
         "stdio.h": "c",
-        "lpe_filterizer.h": "c"
+        "lpe_filterizer.h": "c",
+        "lpe_bitmap_reader.h": "c",
+        "lpe_compressor.h": "c"
     }
 }

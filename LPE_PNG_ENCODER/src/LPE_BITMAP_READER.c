@@ -5,12 +5,6 @@
 
 //***********************************************************************************************************
 
-#pragma warning(disable:4996)
-#pragma warning(disable:4244)
-#define _CRT_SECURE_NO_WARNINGS
-
-//***********************************************************************************************************
-
 static UINT_32 __bmp_width          = 0;
 static UINT_32 __bmp_height         = 0;
 static UINT_8  __bmp_colortype      = 0;

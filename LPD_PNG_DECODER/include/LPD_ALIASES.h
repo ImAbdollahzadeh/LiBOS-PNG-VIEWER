@@ -1,17 +1,37 @@
-#ifndef LPD_ALIASES__H__
-#define LPD_ALIASES__H__
+#ifndef _LPD_ALIASES__H__
+#define _LPD_ALIASES__H__
 
-#define TRUE  1
-#define FALSE 0
+//***********************************************************************************************************
+
+#include <stdio.h>
+#include <stdlib.h>
+
+//***********************************************************************************************************
+
+#define _CRT_SECURE_NO_WARNINGS
+#pragma warning(disable:4996)
+#pragma warning(disable:4244)
+
+//***********************************************************************************************************
+
+#define LPD_TRUE  1
+#define LPD_FALSE 0
+
+//***********************************************************************************************************
 
 #define KB(X) ((X)   << 10)
 #define MB(X) (KB(X) << 10)
 #define GB(X) (MB(X) << 10)
 
-#define UNDEFINED_MARKER_FOUND 0xFF
-#define ERROR_ID               0xFE
+//***********************************************************************************************************
+
+#define LPD_UNDEFINED_MARKER   0xFF
+#define LPD_ERROR_ID           0xFE
 #define LPD_NULL               0x00
-#define FILTER_TYPE_BYTE       0x01
+#define LPD_FILTER_TYPE_BYTE   0x01
+#define LPD_ABS(NUMBER)        ((NUMBER >= 0) ? (NUMBER) : (-NUMBER))
+
+//***********************************************************************************************************
 
 #define LPD_ALIGN(ON, NUM) ((NUM + (ON - 1)) & (~(ON - 1)))
 #define LPD_ALIGN_0x04(NUM) LPD_ALIGN(0x04, NUM)
@@ -19,6 +39,8 @@
 #define LPD_ALIGN_0x10(NUM) LPD_ALIGN(0x10, NUM)
 #define LPD_ALIGN_0x20(NUM) LPD_ALIGN(0x20, NUM)
 #define LPD_WINDOW_ALIGN(NUM) LPD_ALIGN_0x20(NUM)
+
+//***********************************************************************************************************
 
 typedef unsigned long long UINT_64;
 typedef unsigned int       UINT_32;
@@ -29,6 +51,8 @@ typedef int                INT_32;
 typedef short              INT_16;
 typedef char               INT_8;
 typedef unsigned int       BOOL;
+
+//***********************************************************************************************************
 
 typedef enum _LPD_CHUNK_ID {
 	IHDR_ID = 0x00,
@@ -48,6 +72,8 @@ typedef enum _LPD_CHUNK_ID {
 	UNDF_ID = 0x0E
 } LPD_CHUNK_ID;
 
+//***********************************************************************************************************
+
 enum {
 	GREYSCALE            = 0,
 	TRUECOLOR            = 2,
@@ -56,4 +82,6 @@ enum {
 	TRUECOLOR_WITH_ALPHA = 6
 };
 
-#endif
+//***********************************************************************************************************
+
+#endif // !_LPD_ALIASES__H__

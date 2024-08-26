@@ -1,7 +1,6 @@
 //***********************************************************************************************************
 
 #include "LPD_DEFILTERIZER.h"
-#include <stdio.h>
 
 //***********************************************************************************************************
 
@@ -47,7 +46,7 @@ FILTER_TYPE lpd_defilter_row(UINT_8* row, UINT_8* out, UINT_32 byte_in_row, UINT
 
 		// the filtered byte is the difference between the current byte and the byte above it
 		case FILTER_TYPE_UP: {
-			UINT_8* prev_row = row - (byte_in_row + FILTER_TYPE_BYTE);
+			UINT_8* prev_row = row - (byte_in_row + LPD_FILTER_TYPE_BYTE);
 			UINT_32 w = 0;
 			while (w < byte_in_row)
 			{
@@ -60,7 +59,7 @@ FILTER_TYPE lpd_defilter_row(UINT_8* row, UINT_8* out, UINT_32 byte_in_row, UINT
 
 		// the filtered pixel's color is the difference between the current pixel's color and the average of the previous and upper pixel's color
 		case FILTER_TYPE_AVERAGE: {
-			UINT_8* prev_row = row - (byte_in_row + FILTER_TYPE_BYTE);
+			UINT_8* prev_row = row - (byte_in_row + LPD_FILTER_TYPE_BYTE);
 			UINT_8  bpp      = byte_per_pixel;
 			UINT_32 w        = 0;
 			UINT_8  prev_color;
@@ -76,7 +75,7 @@ FILTER_TYPE lpd_defilter_row(UINT_8* row, UINT_8* out, UINT_32 byte_in_row, UINT
 
 		// the current pixel would be the difference between the current pixel and the PaethPredictor pixel
 		case FILTER_TYPE_PEATH: {	
-			UINT_8* prev_row = row - (byte_in_row + FILTER_TYPE_BYTE);
+			UINT_8* prev_row = row - (byte_in_row + LPD_FILTER_TYPE_BYTE);
 			UINT_8  bpp = byte_per_pixel;
 			UINT_32 w = 0;
 			while (w < bpp)
@@ -181,7 +180,7 @@ void lpd_defilter(void* in_buffer, void** out_buffer, UINT_32 in_buffer_size, UI
 		lpd_defilter_row(current_row, out, stride, width, byte_per_pixel);
 
 		// next row pointer
-		current_row += (stride + FILTER_TYPE_BYTE);
+		current_row += (stride + LPD_FILTER_TYPE_BYTE);
 
 		// update output buffer too
 		out += stride;

@@ -1,13 +1,11 @@
 #ifndef _LPD_RENDERER__H__
 #define _LPD_RENDERER__H__
 
+//***********************************************************************************************************
+
 #include "LPD_ALIASES.h"
 #include "LPD_PNG.h"
 #include <Windows.h>
-
-#pragma warning(disable:4996)
-#pragma warning(disable:4244)
-#define _CRT_SECURE_NO_WARNINGS
 
 //***********************************************************************************************************
 
@@ -18,9 +16,9 @@
 //***********************************************************************************************************
 
 #define LPD_RENDERER_SWAP_BYTES(__LPD_RENDERER_BYTE1_, __LPD_RENDERER_BYTE2_) do { \
-	UINT_8 __LPD_RENDERER_TMP_ = __LPD_RENDERER_BYTE1_;                            \
-	__LPD_RENDERER_BYTE1_      = __LPD_RENDERER_BYTE2_;                            \
-	__LPD_RENDERER_BYTE2_      = __LPD_RENDERER_TMP_;                              \
+    UINT_8 __LPD_RENDERER_TMP_ = __LPD_RENDERER_BYTE1_;                            \
+    __LPD_RENDERER_BYTE1_      = __LPD_RENDERER_BYTE2_;                            \
+    __LPD_RENDERER_BYTE2_      = __LPD_RENDERER_TMP_;                              \
 } while(0)
 
 //***********************************************************************************************************
@@ -39,4 +37,4 @@ int     __stdcall lpd_WinMain     (HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
 //***********************************************************************************************************
 
-#endif
+#endif // !_LPD_RENDERER__H__

@@ -1,12 +1,9 @@
 #ifndef _LPE_FILTERIZER__H__
 #define _LPE_FILTERIZER__H__
 
-#include "LPE_ALIASES.h"
-
 //***********************************************************************************************************
 
-#define LPE_ABS(NUMBER) ((NUMBER >= 0) ? (NUMBER) : (-NUMBER))
-#define LPE_FILTER_TYPE_BYTE 0x01
+#include "LPE_ALIASES.h"
 
 //***********************************************************************************************************
 
