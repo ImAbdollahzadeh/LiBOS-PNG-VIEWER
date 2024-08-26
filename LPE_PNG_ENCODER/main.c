@@ -1,6 +1,5 @@
 //***********************************************************************************************************
 
-#include <iostream>
 #include "LPE_ALIASES.h"
 #include "LPE_STRING_UNIT.h"
 #include "LPE_PNG.h"
@@ -62,7 +61,8 @@ int main(void)
 	UINT_32 total_bytes = width * height * bpp;
 
 	// allocate memory for filtered data
-	UINT_8* filtered_data = (UINT_8*)lpe_zero_allocation(total_bytes + height);
+	UINT_8* filtered_data = (UINT_8*)lpe_zero_allocation(total_bytes + height); 
+	/* + height is because for each separate row there is one single byte specifying type of filter for that row */
 
 	// filter the actual RGB or RGBA data
 	lpe_filterize_data(raw_data, filtered_data, width, height, bpp);

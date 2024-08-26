@@ -272,7 +272,7 @@ lz77_local void lpe_lz77_put_lz77_data_into_extracted_data_buffer(LPE_LZ77_BUFFE
 			// update the literal-length counter
 			lz77_literal_length_data_size++;
 
-			// Find out the back pointer distance code (a. k. a. bpdc)		
+			// Find out the back pointer distance code (a.k.a. bpdc)		
 			UINT_32 bpdc = distance_table[dictionary_words[dict_holder].distance_of_word_from_the_origin - dictionary_words[dict_holder].distance_of_reference_from_the_origin];
 
 			// set the bpdc into the distance buffer

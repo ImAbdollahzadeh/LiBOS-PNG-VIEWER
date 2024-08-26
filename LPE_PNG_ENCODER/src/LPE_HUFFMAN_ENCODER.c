@@ -101,7 +101,7 @@ LPE_HUFFMAN_VFLAB* lpe_huffman_create_litlen_histogram(LPE_LZ77_LZ77_OUTPUT_PACK
 	UINT_32 non_empty_entries_count = lpe_huffman_find_non_empty_vflab_entries(litlen_vflab, i);
 
 	// check the non empty count
-	if (non_empty_entries_count == ~0)
+	if (non_empty_entries_count == 0)
 	{
 		printf("literal length vflab shows all entries zero --> fatal error\n ");
 		lpe_free_allocated_mem(litlen_vflab);
@@ -196,7 +196,7 @@ LPE_HUFFMAN_VFLAB* lpe_huffman_create_dist_histogram(LPE_LZ77_LZ77_OUTPUT_PACKAG
 	UINT_32 non_empty_entries_count = lpe_huffman_find_non_empty_vflab_entries(dist_vflab, i);
 
 	// check the non empty count
-	if (non_empty_entries_count == ~0)
+	if (non_empty_entries_count == 0)
 	{
 		printf("distance vflab shows all entries zero --> fatal error\n ");
 		lpe_free_allocated_mem(dist_vflab);
@@ -333,7 +333,7 @@ void lpe_huffman_handle_vflab_litlen(UINT_32** output_buffer, UINT_32* bits_numb
 	// go through all assigned bits
 	while (i < LPE_HUFFMAN_LITERAL_LENGTH_MAX_ENTRIES)
 	{	
-		// only if the entry has non-zero level, procedd to get its actual bits
+		// only if the entry has non-zero level, proceed to get its actual bits
 		if (litlen_vflab[i].level)
 		{
 			UINT_32 actual_data = (UINT_32)(litlen_vflab[i].assigned_reversed_bits);

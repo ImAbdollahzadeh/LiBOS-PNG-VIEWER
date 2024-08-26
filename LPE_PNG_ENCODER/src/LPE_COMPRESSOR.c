@@ -55,7 +55,7 @@ void lpe_compress_data(UINT_8** compressed_data_buffer, UINT_8* filtered_data, U
 	   Whenever we hit a value more than 256, we know that this would be a length-distance pair, 
 	   and subsequently we are able to encode it properly by looking at the buffers.
 	   Secondly, we would need the encoded bit-stream for the actual data. For this reason, we have to make 
-	   a buffer to hold the concatenated huffman trees for the liten and dist. */
+	   a buffer to hold the concatenated huffman trees for the litlen and dist. */
 
 	// define arrays and size holders to keep the binary tree for litlen and dist huffman trees
 	UINT_32* litlen_tree            = LPE_HUFFMAN_NULL;
@@ -97,10 +97,10 @@ void lpe_compress_data(UINT_8** compressed_data_buffer, UINT_8* filtered_data, U
 
 	// concatenate two_trees binary tree and litlen_dist binary tree together
 	lpe_huffman_concatenate_two_bitstreams(dyn_huffman_binary_data, 
-                                               two_trees_binary_array,
-                                               litlen_dist_binary_data,
-                                               two_trees_bit_number,
-                                               (litlen_tree_bit_number + dist_tree_bit_number));
+                                           two_trees_binary_array,
+                                           litlen_dist_binary_data,
+                                           two_trees_bit_number,
+                                           (litlen_tree_bit_number + dist_tree_bit_number));
 
 	// get the code bit length array
 	UINT_32* code_bit_len_array_tree = lpe_huffman_get_code_bit_lengths();
@@ -120,10 +120,10 @@ void lpe_compress_data(UINT_8** compressed_data_buffer, UINT_8* filtered_data, U
 
 	// concatenate *dyn_huffman_binary_data* and *encoded_bistream* together into *block_data* buffer
 	lpe_huffman_concatenate_two_bitstreams(block_data, 
-                                               dyn_huffman_binary_data,
-                                               encoded_bistream, 
-                                               (two_trees_bit_number + litlen_tree_bit_number + dist_tree_bit_number), 
-                                               encoded_bistream_size);
+                                           dyn_huffman_binary_data,
+                                           encoded_bistream, 
+                                           (two_trees_bit_number + litlen_tree_bit_number + dist_tree_bit_number), 
+                                           encoded_bistream_size);
 
 	// define 3-bits value called header
 	UINT_32 header = ~0;
@@ -145,10 +145,10 @@ void lpe_compress_data(UINT_8** compressed_data_buffer, UINT_8* filtered_data, U
 
 	// concatenate *result* and old *block_data* together into the new *block_data* buffer
 	lpe_huffman_concatenate_two_bitstreams(block_data, 
-                                               &result, 
-                                               block_data, 
-                                               17, 
-                                               (two_trees_bit_number + litlen_tree_bit_number + dist_tree_bit_number + encoded_bistream_size));
+                                           &result, 
+                                           block_data, 
+                                           17, 
+                                           (two_trees_bit_number + litlen_tree_bit_number + dist_tree_bit_number + encoded_bistream_size));
 
 	
 	// ...

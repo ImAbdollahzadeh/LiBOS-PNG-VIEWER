@@ -1,8 +1,8 @@
 #include "LPD_DECOMPRESSOR.h"
 #include "LPD_PNG.h"
-#include <iostream>
+#include <stdio.h>
 
-static bool      first_fixed_huffman_call = true;
+static BOOL      first_fixed_huffman_call = TRUE;
 static LPD_FIXED fix_data;
 static UINT_8    fixed_literal_length_buffer_bitlen[288];
 static UINT_8    fixed_distance_buffer_bitlen      [30];
@@ -218,7 +218,7 @@ void lpd_decompress_zlib_buffer_dynamic(LPD_PNG* png, LPD_BIT_STREAM* bits)
 void lpd_decompress_zlib_buffer_fixed(LPD_PNG* png, LPD_BIT_STREAM* bits)
 {
 	// ********* fixed trees construction method *********
-	if (first_fixed_huffman_call)
+	if (first_fixed_huffman_call == TRUE)
 	{
 		// prepare the LPD_FIXED data and the two fixed bitlen buffers
 		memset(&fix_data, 0, sizeof(LPD_FIXED));
@@ -243,7 +243,7 @@ void lpd_decompress_zlib_buffer_fixed(LPD_PNG* png, LPD_BIT_STREAM* bits)
 		fix_data.distance_tree = lpd_construct_huffman_tree(fixed_distance_buffer_bitlen, 30);
 
 		// the fixed huffman trees have been constructed, thus, never call the fixed trees construction again
-		first_fixed_huffman_call = false;
+		first_fixed_huffman_call = FALSE;
 	}
 
 	// decompress the current block like that of dynamic huffman
@@ -498,15 +498,14 @@ UINT_32 lpd_decode_huffman_tree(LPD_BIT_STREAM* bits, UINT_32* huffman_tree, UIN
 
 //***********************************************************************************************************
 
-void lpd_deflate_block(
-	LPD_PNG*        png, 
-	LPD_BIT_STREAM* bits, 
-	UINT_32*        literal_tree, 
-	UINT_8*         literal_bitlen,
-	UINT_32         literal_array_length,
-	UINT_32*        distance_tree, 
-	UINT_8*         distance_bitlen, 
-	UINT_32         distance_array_length)
+void lpd_deflate_block(LPD_PNG*        png, 
+	                   LPD_BIT_STREAM* bits, 
+	                   UINT_32*        literal_tree, 
+	                   UINT_8*         literal_bitlen,
+	                   UINT_32         literal_array_length,
+	                   UINT_32*        distance_tree, 
+	                   UINT_8*         distance_bitlen, 
+	                   UINT_32         distance_array_length)
 {
 	// prepare the decompressed buffer
 	UINT_8* decompressed_data = png->decompressed_data_buffer + png->decompressed_data_counter;
@@ -515,7 +514,7 @@ void lpd_deflate_block(
 	UINT_32 count             = 0;
 
 	// loop forever until an EOI (a.k.a. 256) is found
-	while (1)
+	while (TRUE)
 	{
 		// obtain the literal/length decoded value
 		UINT_32 decoded_value = lpd_decode_huffman_tree(bits, literal_tree, literal_bitlen, literal_array_length);
@@ -572,20 +571,20 @@ void lpd_compression_info(UINT_8* buffer)
 
 //***********************************************************************************************************
 
-bool lpd_is_adler32(UINT_8* buffer)
+BOOL lpd_is_adler32(UINT_8* buffer) // < ======================= UNCOMPLETE ========================
 {
 	// read out final 4 bytes of the ZLIB block
-	UINT_8 adser32_checksum_byte_1 = buffer[0];
-	UINT_8 adser32_checksum_byte_2 = buffer[1];
-	UINT_8 adser32_checksum_byte_3 = buffer[2];
-	UINT_8 adser32_checksum_byte_4 = buffer[3];
+	UINT_8 adler32_checksum_byte_1 = buffer[0];
+	UINT_8 adler32_checksum_byte_2 = buffer[1];
+	UINT_8 adler32_checksum_byte_3 = buffer[2];
+	UINT_8 adler32_checksum_byte_4 = buffer[3];
 	
 	if (1)
 	{
 		// TODO ...
-		return true;
+		return TRUE;
 	}
-	return false;
+	return FALSE;
 }
 
 //***********************************************************************************************************

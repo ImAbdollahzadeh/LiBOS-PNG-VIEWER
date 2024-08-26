@@ -24,7 +24,7 @@
 
 //***********************************************************************************************************
 
-#define LPE_LZ77_SWAP_DICTIONARY_ENTRY(LPE_LZ77_DICTIONARY_WORD_1, LPE_LZ77_DICTIONARY_WORD_2) do {             \
+#define LPE_LZ77_SWAP_DICTIONARY_ENTRY(LPE_LZ77_DICTIONARY_WORD_1, LPE_LZ77_DICTIONARY_WORD_2) do {         \
 	LPE_SWAP_TWO_OBJECTS(LPE_LZ77_DICTIONARY_WORD, LPE_LZ77_DICTIONARY_WORD_1, LPE_LZ77_DICTIONARY_WORD_2); \
 } while(0)
 

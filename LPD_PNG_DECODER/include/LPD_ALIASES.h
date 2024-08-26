@@ -1,6 +1,9 @@
 #ifndef LPD_ALIASES__H__
 #define LPD_ALIASES__H__
 
+#define TRUE  1
+#define FALSE 0
+
 #define KB(X) ((X)   << 10)
 #define MB(X) (KB(X) << 10)
 #define GB(X) (MB(X) << 10)
@@ -20,6 +23,7 @@ typedef long long          INT_64;
 typedef int                INT_32;
 typedef short              INT_16;
 typedef char               INT_8;
+typedef unsigned int       BOOL;
 
 typedef enum _LPD_CHUNK_ID {
 	IHDR_ID = 0x00,

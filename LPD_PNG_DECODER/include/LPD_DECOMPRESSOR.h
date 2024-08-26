@@ -106,6 +106,6 @@ local_function void     lpd_decompress_zlib_buffer_no_compression (LPD_PNG*, LPD
 
 callable       void     lpd_decompress_zlib_buffer                (LPD_PNG* png, UINT_8* compressed_data);
 callable       void     lpd_compression_info                      (UINT_8* buffer);
-callable       bool     lpd_is_adler32                            (UINT_8* buffer);
+callable       BOOL     lpd_is_adler32                            (UINT_8* buffer);
 
 #endif
