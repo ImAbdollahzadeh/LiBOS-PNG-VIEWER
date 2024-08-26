@@ -4,7 +4,7 @@
 #include "LPE_BITMAP_READER.h"
 #include "LPE_STRING_UNIT.h"
 #include "LPE_COMPRESSOR.h"
-#include <iostream>
+#include <stdio.h>
 
 #define _CRT_SECURE_NO_WARNINGS
 #pragma warning(disable:4996)
