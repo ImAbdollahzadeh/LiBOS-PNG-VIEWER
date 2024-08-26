@@ -61,8 +61,8 @@ int main(void)
 	UINT_32 total_bytes = width * height * bpp;
 
 	// allocate memory for filtered data
+	// (+ height) is because for each separate row there is one single byte specifying type of filteration for that row
 	UINT_8* filtered_data = (UINT_8*)lpe_zero_allocation(total_bytes + height); 
-	/* + height is because for each separate row there is one single byte specifying type of filter for that row */
 
 	// filter the actual RGB or RGBA data
 	lpe_filterize_data(raw_data, filtered_data, width, height, bpp);
@@ -77,6 +77,7 @@ int main(void)
 	lpe_free_allocated_mem(filtered_data);
 
 	// divide the compressed data into multiple IDAT sections
+	// ...
 
 	// we don't need anymore the allocated memory for the compressed data which was assigned internally in lpe_compress_data
 	lpe_free_allocated_mem(compressed_data);

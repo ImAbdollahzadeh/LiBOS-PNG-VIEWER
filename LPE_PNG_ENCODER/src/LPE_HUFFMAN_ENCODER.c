@@ -135,7 +135,7 @@ LPE_HUFFMAN_VFLAB* lpe_huffman_create_litlen_histogram(LPE_LZ77_LZ77_OUTPUT_PACK
 	// assign bits to upper level in tree
 	while (i < L_down)
 	{
-		litlen_vflab[i].assigned_reversed_bits = lpe_bit_reverse(bit, (litlen_vflab[i].level));
+		litlen_vflab[i].assigned_reversed_bits = (UINT_16)(lpe_bit_reverse(bit, (litlen_vflab[i].level)));
 		bit++;
 		i++;
 	}
@@ -147,7 +147,7 @@ LPE_HUFFMAN_VFLAB* lpe_huffman_create_litlen_histogram(LPE_LZ77_LZ77_OUTPUT_PACK
 	// assign bits to lower level in tree
 	while ((i >= L_down) && (i < non_empty_entries_count))
 	{
-		litlen_vflab[i].assigned_reversed_bits = lpe_bit_reverse(bit, (litlen_vflab[i].level));
+		litlen_vflab[i].assigned_reversed_bits = (UINT_16)(lpe_bit_reverse(bit, (litlen_vflab[i].level)));
 		bit++;
 		i++;
 	}
@@ -270,7 +270,7 @@ huffman_local void lpe_huffman_lexicographically_sort_vflab_by_frequency(LPE_HUF
 			if ((vflab[loop_counter].frequency) > vflab[loop_counter + 1].frequency)
 				LPE_HUFFMAN_SWAP_VFLAB((&vflab[loop_counter]), (&vflab[loop_counter + 1]));
 
-			// but if the frequency of lower index entry is equal to that of the higher index entry, check out their value. Lower value must be ahead
+			// lexicographically_sort: if frequency of lower index entry is equal to that of the higher index entry, check out their value. Lower value goes ahead
 			else if ((vflab[loop_counter].frequency) == vflab[loop_counter + 1].frequency)
 			{
 				if ((vflab[loop_counter].value) > vflab[loop_counter + 1].value)
@@ -824,7 +824,7 @@ void lpe_huffman_set_assigned_bits(LPE_HUFFMAN_VFLAB* in_buffer, UINT_32 elimina
 	// assign bits to upper level in tree
 	while (i < L_down)
 	{
-		dist_vflab[i].assigned_reversed_bits = lpe_bit_reverse(bit, (dist_vflab[i].level));
+		dist_vflab[i].assigned_reversed_bits = (UINT_16)(lpe_bit_reverse(bit, (dist_vflab[i].level)));
 		bit++;
 		i++;
 	}
@@ -836,7 +836,7 @@ void lpe_huffman_set_assigned_bits(LPE_HUFFMAN_VFLAB* in_buffer, UINT_32 elimina
 	// assign bits to lower level in tree
 	while ((i >= L_down) && (i < non_empty_entries_count))
 	{
-		dist_vflab[i].assigned_reversed_bits = lpe_bit_reverse(bit, (dist_vflab[i].level));
+		dist_vflab[i].assigned_reversed_bits = (UINT_16)(lpe_bit_reverse(bit, (dist_vflab[i].level)));
 		bit++;
 		i++;
 	}
@@ -1008,7 +1008,7 @@ void lpe_huffman_post_process_two_trees_vflab(LPE_HUFFMAN_VFLAB* vflab, UINT_32 
 	// assign bits to upper level in tree
 	while (i < L_down)
 	{
-		cpy_vflab[i].assigned_reversed_bits = lpe_bit_reverse(bit, (cpy_vflab[i].level));
+		cpy_vflab[i].assigned_reversed_bits = (UINT_16)(lpe_bit_reverse(bit, (cpy_vflab[i].level)));
 		bit++;
 		i++;
 	}
@@ -1020,7 +1020,7 @@ void lpe_huffman_post_process_two_trees_vflab(LPE_HUFFMAN_VFLAB* vflab, UINT_32 
 	// assign bits to lower level in tree
 	while ((i >= L_down) && (i < non_empty_entries_count))
 	{
-		cpy_vflab[i].assigned_reversed_bits = lpe_bit_reverse(bit, (cpy_vflab[i].level));
+		cpy_vflab[i].assigned_reversed_bits = (UINT_16)(lpe_bit_reverse(bit, (cpy_vflab[i].level)));
 		bit++;
 		i++;
 	}
