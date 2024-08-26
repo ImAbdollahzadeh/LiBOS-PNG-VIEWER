@@ -145,10 +145,10 @@ void lpe_compress_data(UINT_8** compressed_data_buffer, UINT_8* filtered_data, U
 
 	// concatenate *result* and old *block_data* together into the new *block_data* buffer
 	lpe_huffman_concatenate_two_bitstreams(block_data, 
-                                           &result, 
-                                           block_data, 
-                                           17, 
-                                           (two_trees_bit_number + litlen_tree_bit_number + dist_tree_bit_number + encoded_bistream_size));
+	                                       &result, 
+	                                       block_data, 
+	                                       17, 
+	                                       (two_trees_bit_number + litlen_tree_bit_number + dist_tree_bit_number + encoded_bistream_size));
 
 	
 	// ...
