@@ -499,13 +499,13 @@ UINT_32 lpd_decode_huffman_tree(LPD_BIT_STREAM* bits, UINT_32* huffman_tree, UIN
 //***********************************************************************************************************
 
 void lpd_deflate_block(LPD_PNG*        png, 
-	                   LPD_BIT_STREAM* bits, 
-	                   UINT_32*        literal_tree, 
-	                   UINT_8*         literal_bitlen,
-	                   UINT_32         literal_array_length,
-	                   UINT_32*        distance_tree, 
-	                   UINT_8*         distance_bitlen, 
-	                   UINT_32         distance_array_length)
+                       LPD_BIT_STREAM* bits, 
+                       UINT_32*        literal_tree, 
+                       UINT_8*         literal_bitlen,
+                       UINT_32         literal_array_length,
+                       UINT_32*        distance_tree, 
+                       UINT_8*         distance_bitlen, 
+                       UINT_32         distance_array_length)
 {
 	// prepare the decompressed buffer
 	UINT_8* decompressed_data = png->decompressed_data_buffer + png->decompressed_data_counter;
