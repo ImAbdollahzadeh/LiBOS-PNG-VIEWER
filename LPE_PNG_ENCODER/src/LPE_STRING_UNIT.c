@@ -8,16 +8,16 @@ const char* marker_table[14] = { "IHDR", "IEND", "IDAT", "PLTE", "sRGB", "bKGD",
 
 //***********************************************************************************************************
 
-bool lpe_png_strcmp(const char* str1, const char* str2)
+BOOL lpe_png_strcmp(const char* str1, const char* str2)
 {
 	UINT_8 sz = 0;
 	while (sz < 4)
 	{
 		if (str1[sz] != str2[sz])
-			return false;
+			return FALSE;
 		sz++;
 	}
-	return true;
+	return TRUE;
 }
 
 //***********************************************************************************************************

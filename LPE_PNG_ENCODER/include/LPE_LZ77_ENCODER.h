@@ -57,7 +57,7 @@ typedef struct _LPE_LZ77_LZ77_OUTPUT_PACKAGE {
 //*********************************************************************************************************** local functions
 
 lz77_local UINT_32 lpe_lz77_string_length                            (UINT_8* str);
-lz77_local bool    lpe_lz77_search_buffer_contains_this_word         (UINT_8* search_buffer, UINT_8* word, UINT_32 search_buffer_size, UINT_32 word_size, UINT_32* ref);
+lz77_local BOOL    lpe_lz77_search_buffer_contains_this_word         (UINT_8* search_buffer, UINT_8* word, UINT_32 search_buffer_size, UINT_32 word_size, UINT_32* ref);
 lz77_local UINT_32 lpe_lz77_find_longest_match                       (LPE_SLIDING_WINDOW* sw);
 lz77_local void    lpe_lz77_lz77_algorithm                           (LPE_SLIDING_WINDOW* sw, UINT_32 buffer_size);
 lz77_local void    lpe_lz77_put_lz77_data_into_extracted_data_buffer (LPE_LZ77_BUFFER* lz77, UINT_32* lz77_litlen, UINT_32* lz77_dist);
