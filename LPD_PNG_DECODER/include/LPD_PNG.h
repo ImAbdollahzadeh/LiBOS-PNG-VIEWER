@@ -149,7 +149,7 @@ typedef struct _LPD_PNG {
 #pragma pack(pop)
 
 UINT_32 lpd_png_find_size                        (const char* file_address);
-bool    lpd_read_png_file                        (LPD_PNG* png, const char* file_address);
+BOOL    lpd_read_png_file                        (LPD_PNG* png, const char* file_address);
 void*   lpd_buffer_reallocation                  (void* old_pointer, UINT_32 old_size, UINT_32 new_extra_size);
 void*   lpd_zero_allocation                      (UINT_32 byte_size);
 void    lpd_free_allocated_mem                   (void* mem);
@@ -158,7 +158,3 @@ void    lpd_idat_text_ztxt_chunks_counter_report (LPD_PNG* png);
 void    lpd_clean_up_the_png                     (LPD_PNG* png);
 
 #endif // !_LPD_PNG__H__
-
-
-
-

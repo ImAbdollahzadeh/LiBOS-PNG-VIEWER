@@ -2,16 +2,16 @@
 
 const char* marker_table[14] = { "IHDR", "IEND", "IDAT", "PLTE", "sRGB", "bKGD", "cHRM", "gAMA", "sBIT", "zTXt", "tEXt", "tIME", "pHYs", "hIST" };
 
-static bool lpd_png_strcmp(const char* str1, const char* str2)
+static BOOL lpd_png_strcmp(const char* str1, const char* str2)
 {
 	UINT_8 sz = 0;
 	while (sz < 4)
 	{
 		if (str1[sz] != str2[sz])
-			return false;
+			return FALSE;
 		sz++;
 	}
-	return true;
+	return TRUE;
 }
 
 UINT_8 lpd_which_png_marker(const char* str)

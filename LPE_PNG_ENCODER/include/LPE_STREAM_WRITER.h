@@ -2,7 +2,6 @@
 #define _LPE_STREAM_WRITER__H__
 
 #include "LPE_ALIASES.h"
-#include <cstdio> // to add FILE*
 
 //***********************************************************************************************************
 
