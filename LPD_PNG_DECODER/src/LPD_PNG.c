@@ -86,8 +86,8 @@ static BOOL lpd_parse_ihdr(LPD_PNG* png, UINT_32 chunk_data_length, FILE* file)
 	// check out the crc
 	if (!lpd_calculate_crc32(ch->crc))
 	{
-		free(ch);
-		free(data_buffer);
+		lpd_free_allocated_mem(ch);
+		lpd_free_allocated_mem(data_buffer);
 		printf("calculation of crc32 failed --> fatal error\n");
 		return FALSE;
 	}
@@ -111,7 +111,7 @@ static BOOL lpd_parse_ihdr(LPD_PNG* png, UINT_32 chunk_data_length, FILE* file)
 	png->total_size = lpd_reverse_a_dword(ihdr->width) * lpd_reverse_a_dword(ihdr->height) * 4;
 
 	// free the defined chunk
-	free(ch);
+	lpd_free_allocated_mem(ch);
 
 	return TRUE;
 }
@@ -136,8 +136,8 @@ static BOOL lpd_parse_idat(LPD_PNG* png, UINT_32 chunk_data_length, FILE* file)
 	// check out the crc
 	if (!lpd_calculate_crc32(ch->crc))
 	{
-		free(ch);
-		free(data_buffer);
+		lpd_free_allocated_mem(ch);
+		lpd_free_allocated_mem(data_buffer);
 		printf("calculation of crc32 failed --> fatal error\n");
 		return FALSE;
 	}
@@ -171,7 +171,7 @@ static BOOL lpd_parse_idat(LPD_PNG* png, UINT_32 chunk_data_length, FILE* file)
 	png->number_of_idats++;
 
 	// free the defined chunk
-	free(ch);
+	lpd_free_allocated_mem(ch);
 
 	return TRUE;
 }
@@ -196,8 +196,8 @@ static BOOL lpd_parse_plte(LPD_PNG* png, UINT_32 chunk_data_length, FILE* file)
 	// check out the crc
 	if (!lpd_calculate_crc32(ch->crc))
 	{
-		free(ch);
-		free(data_buffer);
+		lpd_free_allocated_mem(ch);
+		lpd_free_allocated_mem(data_buffer);
 		printf("calculation of crc32 failed --> fatal error\n");
 		return FALSE;
 	}
@@ -215,7 +215,7 @@ static BOOL lpd_parse_plte(LPD_PNG* png, UINT_32 chunk_data_length, FILE* file)
 	printf("-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+\n");
 
 	// free the defined chunk
-	free(ch);
+	lpd_free_allocated_mem(ch);
 
 	return TRUE;
 }
@@ -240,8 +240,8 @@ static BOOL lpd_parse_srgb(LPD_PNG* png, UINT_32 chunk_data_length, FILE* file)
 	// check out the crc
 	if (!lpd_calculate_crc32(ch->crc))
 	{
-		free(ch);
-		free(data_buffer);
+		lpd_free_allocated_mem(ch);
+		lpd_free_allocated_mem(data_buffer);
 		printf("calculation of crc32 failed --> fatal error\n");
 		return FALSE;
 	}
@@ -265,7 +265,7 @@ static BOOL lpd_parse_srgb(LPD_PNG* png, UINT_32 chunk_data_length, FILE* file)
 	printf("-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+\n");
 
 	// free the defined chunk
-	free(ch);
+	lpd_free_allocated_mem(ch);
 
 	return TRUE;
 }
@@ -290,8 +290,8 @@ static BOOL lpd_parse_gama(LPD_PNG* png, UINT_32 chunk_data_length, FILE* file)
 	// check out the crc
 	if (!lpd_calculate_crc32(ch->crc))
 	{
-		free(ch);
-		free(data_buffer);
+		lpd_free_allocated_mem(ch);
+		lpd_free_allocated_mem(data_buffer);
 		printf("calculation of crc32 failed --> fatal error\n");
 		return FALSE;
 	}
@@ -307,7 +307,7 @@ static BOOL lpd_parse_gama(LPD_PNG* png, UINT_32 chunk_data_length, FILE* file)
 	printf("-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+\n");
 
 	// free the defined chunk
-	free(ch);
+	lpd_free_allocated_mem(ch);
 
 	return TRUE;
 }
@@ -332,8 +332,8 @@ static BOOL lpd_parse_chrm(LPD_PNG* png, UINT_32 chunk_data_length, FILE* file)
 	// check out the crc
 	if (!lpd_calculate_crc32(ch->crc))
 	{
-		free(ch);
-		free(data_buffer);
+		lpd_free_allocated_mem(ch);
+		lpd_free_allocated_mem(data_buffer);
 		printf("calculation of crc32 failed --> fatal error\n");
 		return FALSE;
 	}
@@ -356,7 +356,7 @@ static BOOL lpd_parse_chrm(LPD_PNG* png, UINT_32 chunk_data_length, FILE* file)
 	printf("-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+\n");
 
 	// free the defined chunk
-	free(ch); 
+	lpd_free_allocated_mem(ch); 
 	
 	return TRUE;
 }
@@ -381,8 +381,8 @@ static BOOL lpd_parse_phys(LPD_PNG* png, UINT_32 chunk_data_length, FILE* file)
 	// check out the crc
 	if (!lpd_calculate_crc32(ch->crc))
 	{
-		free(ch);
-		free(data_buffer);
+		lpd_free_allocated_mem(ch);
+		lpd_free_allocated_mem(data_buffer);
 		printf("calculation of crc32 failed --> fatal error\n");
 		return FALSE;
 	}
@@ -400,7 +400,7 @@ static BOOL lpd_parse_phys(LPD_PNG* png, UINT_32 chunk_data_length, FILE* file)
 	printf("-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+\n");
 
 	// free the defined chunk
-	free(ch);
+	lpd_free_allocated_mem(ch);
 
 	return TRUE;
 }
@@ -425,8 +425,8 @@ static BOOL lpd_parse_hist(LPD_PNG* png, UINT_32 chunk_data_length, FILE* file)
 	// check out the crc
 	if (!lpd_calculate_crc32(ch->crc))
 	{
-		free(ch);
-		free(data_buffer);
+		lpd_free_allocated_mem(ch);
+		lpd_free_allocated_mem(data_buffer);
 		printf("calculation of crc32 failed --> fatal error\n");
 		return FALSE;
 	}
@@ -442,7 +442,7 @@ static BOOL lpd_parse_hist(LPD_PNG* png, UINT_32 chunk_data_length, FILE* file)
 	printf("-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+\n");
 
 	// free the defined chunk
-	free(ch);
+	lpd_free_allocated_mem(ch);
 
 	return TRUE;
 }
@@ -467,8 +467,8 @@ static BOOL lpd_parse_sbit(LPD_PNG* png, UINT_32 chunk_data_length, FILE* file)
 	// check out the crc
 	if (!lpd_calculate_crc32(ch->crc))
 	{
-		free(ch);
-		free(data_buffer);
+		lpd_free_allocated_mem(ch);
+		lpd_free_allocated_mem(data_buffer);
 		printf("calculation of crc32 failed --> fatal error\n");
 		return FALSE;
 	}
@@ -485,7 +485,7 @@ static BOOL lpd_parse_sbit(LPD_PNG* png, UINT_32 chunk_data_length, FILE* file)
 	printf("-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+\n");
 
 	// free the defined chunk
-	free(ch);
+	lpd_free_allocated_mem(ch);
 
 	return TRUE;
 }
@@ -510,8 +510,8 @@ static BOOL lpd_parse_text(LPD_PNG* png, UINT_32 chunk_data_length, FILE* file)
 	// check out the crc
 	if (!lpd_calculate_crc32(ch->crc))
 	{
-		free(ch);
-		free(data_buffer);
+		lpd_free_allocated_mem(ch);
+		lpd_free_allocated_mem(data_buffer);
 		printf("calculation of crc32 failed --> fatal error\n");
 		return FALSE;
 	}
@@ -563,7 +563,7 @@ static BOOL lpd_parse_text(LPD_PNG* png, UINT_32 chunk_data_length, FILE* file)
 	png->number_of_texts++;
 
 	// free the defined chunk
-	free(ch);
+	lpd_free_allocated_mem(ch);
 
 	return TRUE;
 }
@@ -588,8 +588,8 @@ static BOOL lpd_parse_ztxt(LPD_PNG* png, UINT_32 chunk_data_length, FILE* file)
 	// check out the crc
 	if (!lpd_calculate_crc32(ch->crc))
 	{
-		free(ch);
-		free(data_buffer);
+		lpd_free_allocated_mem(ch);
+		lpd_free_allocated_mem(data_buffer);
 		printf("calculation of crc32 failed --> fatal error\n");
 		return FALSE;
 	}
@@ -651,7 +651,7 @@ static BOOL lpd_parse_ztxt(LPD_PNG* png, UINT_32 chunk_data_length, FILE* file)
 
 	// clean up the allocated buffers of the fake png
 	fake_png.decompressed_data_counter = 0;
-	free(fake_png.decompressed_data_buffer);
+	lpd_free_allocated_mem(fake_png.decompressed_data_buffer);
 
 	printf("\n");
 	printf("-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+\n");
@@ -674,7 +674,7 @@ static BOOL lpd_parse_ztxt(LPD_PNG* png, UINT_32 chunk_data_length, FILE* file)
 	png->number_of_ztxts++;
 
 	// free the defined chunk
-	free(ch);
+	lpd_free_allocated_mem(ch);
 
 	return TRUE;
 }
@@ -699,8 +699,8 @@ static BOOL lpd_parse_time(LPD_PNG* png, UINT_32 chunk_data_length, FILE* file)
 	// check out the crc
 	if (!lpd_calculate_crc32(ch->crc))
 	{
-		free(ch);
-		free(data_buffer);
+		lpd_free_allocated_mem(ch);
+		lpd_free_allocated_mem(data_buffer);
 		printf("calculation of crc32 failed --> fatal error\n");
 		return FALSE;
 	}
@@ -721,7 +721,7 @@ static BOOL lpd_parse_time(LPD_PNG* png, UINT_32 chunk_data_length, FILE* file)
 	printf("-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+\n");
 
 	// free the defined chunk
-	free(ch);
+	lpd_free_allocated_mem(ch);
 
 	return TRUE;
 }
@@ -746,8 +746,8 @@ static BOOL lpd_parse_bkgd(LPD_PNG* png, UINT_32 chunk_data_length, FILE* file)
 	// check out the crc
 	if (!lpd_calculate_crc32(ch->crc))
 	{
-		free(ch);
-		free(data_buffer);
+		lpd_free_allocated_mem(ch);
+		lpd_free_allocated_mem(data_buffer);
 		printf("calculation of crc32 failed --> fatal error\n");
 		return FALSE;
 	}
@@ -767,7 +767,7 @@ static BOOL lpd_parse_bkgd(LPD_PNG* png, UINT_32 chunk_data_length, FILE* file)
 	printf("-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+\n");
 
 	// free the defined chunk
-	free(ch);
+	lpd_free_allocated_mem(ch);
 
 	return TRUE;
 }
@@ -792,8 +792,8 @@ static BOOL lpd_parse_undefined(LPD_PNG* png, UINT_32 chunk_data_length, FILE* f
 	// check out the crc
 	if (!lpd_calculate_crc32(ch->crc))
 	{
-		free(ch);
-		free(data_buffer);
+		lpd_free_allocated_mem(ch);
+		lpd_free_allocated_mem(data_buffer);
 		printf("calculation of crc32 failed --> fatal error\n");
 		return FALSE;
 	}
@@ -808,7 +808,7 @@ static BOOL lpd_parse_undefined(LPD_PNG* png, UINT_32 chunk_data_length, FILE* f
 	printf("-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+\n");
 
 	// free the defined chunk
-	free(ch);
+	lpd_free_allocated_mem(ch);
 
 	return TRUE;
 }
@@ -1004,7 +1004,6 @@ BOOL lpd_read_png_file(LPD_PNG* png, const char* file_address)
 
 	// return the TRUE result
 	return TRUE;
-
 }
 
 //***********************************************************************************************************
