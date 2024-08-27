@@ -1514,3 +1514,63 @@ void lpe_huffman_free_vflabs(void)
 
 //***********************************************************************************************************
 
+huffman_local void lpe_huffman_bit_dumper(LPE_HUFFMAN_VFLAB* vflab_entry, char* out)
+{
+	// get the number of bits to be printed
+	UINT_32 size      = vflab_entry->level;
+
+	// get the bit stream of this entry
+	UINT_16 bitstream = vflab_entry->assigned_reversed_bits;
+
+	// loop through all bits
+	for (size_t i = 0; i < size; i++)
+	{
+		// retrieve the bit
+		UINT_8 val = (UINT_8)(bitstream & LPE_BIT(i)) >> i;
+
+		// convert to character
+		char ch = (val == 0) ? '0' : '1';
+
+		// put it in its right place at output buffer
+		out[size - 1 - i] = ch;
+	}
+
+	// NULL-terminate the buffer
+	out[size] = 0;
+}
+
+//***********************************************************************************************************
+
+void lpe_huffman_dump_vflab(LPE_HUFFMAN_VFLAB* vflab, UINT_32 entries)
+{
+	// sanity check to see if we have a valid vflab
+	if ((!vflab) || (!entries))
+	{
+		printf("invalid VFLAB at address 0x%x and size %u. Fatal error!\n", vflab, entries);
+		return;
+	}
+
+	// define an indexer
+	UINT_32 i = 0;
+
+	// define a string holder buffer
+	char tmp_buffer[0x20];
+
+	// zero it out
+	memset(tmp_buffer, 0, 0x20);
+
+	// loop through all vflab's entry
+	while(i < entries)
+	{
+		// retrieve the assigned reverse bits as string
+		lpe_huffman_bit_dumper(&vflab[i], tmp_buffer);
+
+		// print all fields out
+		printf("INDEX%i -> VALUE: %i | FREQ: %i | LEVEL: %i | ASSIGNED REVERSED BITS: %s\n", i, vflab[i].value, vflab[i].frequency, vflab[i].level, tmp_buffer);
+		
+		// go to the next entry
+		i++;
+	}
+}
+
+//***********************************************************************************************************

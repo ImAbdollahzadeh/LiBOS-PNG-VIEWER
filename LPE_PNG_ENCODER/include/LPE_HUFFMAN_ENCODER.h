@@ -73,6 +73,7 @@ huffman_local LPE_HUFFMAN_VFLAB* lpe_huffman_find_literal_length_in_vflab_buffer
 huffman_local LPE_HUFFMAN_VFLAB* lpe_huffman_find_dist_in_vflab_buffer                 (UINT_32 distance_code);
 huffman_local UINT_32            lpe_huffman_first_occurance_of_this_number            (UINT_32 num, UINT_32* table, UINT_32 entries);
 huffman_local UINT_32            lpe_huffman_find_non_empty_code_bit_lengths_entries   (void);
+huffman_local void               lpe_huffman_bit_dumper                                (LPE_HUFFMAN_VFLAB* vflab_entry, char* out);
 
 //*********************************************************************************************************** global functions
 
@@ -85,6 +86,7 @@ void               lpe_huffman_post_process_two_trees_vflab  (LPE_HUFFMAN_VFLAB*
 UINT_32*           lpe_huffman_get_code_bit_lengths          (void);
 void               lpe_huffman_encode_actual_data            (LPE_LZ77_LZ77_OUTPUT_PACKAGE* lz77_output, UINT_32** encoded_bitstream, UINT_32* encoded_bitstream_size);
 UINT_32            lpe_huffman_get_header_values             (UINT_32* header, UINT_32* hlit, UINT_32* hdist, UINT_32* hclen);
+void               lpe_huffman_dump_vflab                    (LPE_HUFFMAN_VFLAB* vflab, UINT_32 entries);
 
 //***********************************************************************************************************
 
