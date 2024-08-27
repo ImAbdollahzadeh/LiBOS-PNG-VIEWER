@@ -94,10 +94,10 @@ LPE_HUFFMAN_VFLAB* lpe_huffman_create_litlen_histogram(LPE_LZ77_LZ77_OUTPUT_PACK
 	/* Up to here, we have filled up VFLAB's values and frequencies. 
 	   To find their level, we have to sort them from max to min, and then, we would assign bits to them */
 
-	lpe_huffman_lexicographically_sort_vflab_by_frequency(litlen_vflab, i);
+	lpe_huffman_lexicographically_sort_vflab_by_frequency(litlen_vflab, LPE_HUFFMAN_LITERAL_LENGTH_MAX_ENTRIES);
 
 	// acquire the number of non empty entries in vflab
-	UINT_32 non_empty_entries_count = lpe_huffman_find_non_empty_vflab_entries(litlen_vflab, i);
+	UINT_32 non_empty_entries_count = lpe_huffman_find_non_empty_vflab_entries(litlen_vflab, LPE_HUFFMAN_LITERAL_LENGTH_MAX_ENTRIES);
 
 	// check the non empty count
 	if (non_empty_entries_count == 0)
@@ -189,10 +189,10 @@ LPE_HUFFMAN_VFLAB* lpe_huffman_create_dist_histogram(LPE_LZ77_LZ77_OUTPUT_PACKAG
 	/* Up to here, we have filled up VFLAB's values and frequencies.
 	To find their level, we have to sort them from max to min, and then, we would assign bits to them */
 
-	lpe_huffman_lexicographically_sort_vflab_by_frequency(dist_vflab, i);
+	lpe_huffman_lexicographically_sort_vflab_by_frequency(dist_vflab, LPE_HUFFMAN_DISTANCE_MAX_ENTRIES);
 
 	// acquire the number of non empty entries in vflab
-	UINT_32 non_empty_entries_count = lpe_huffman_find_non_empty_vflab_entries(dist_vflab, i);
+	UINT_32 non_empty_entries_count = lpe_huffman_find_non_empty_vflab_entries(dist_vflab, LPE_HUFFMAN_DISTANCE_MAX_ENTRIES);
 
 	// check the non empty count
 	if (non_empty_entries_count == 0)
