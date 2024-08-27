@@ -76,7 +76,7 @@ LPE_HUFFMAN_VFLAB* lpe_huffman_create_litlen_histogram(LPE_LZ77_LZ77_OUTPUT_PACK
 
 	// get the size of the litlen buffer
 	UINT_32 litlen_buffer_dword_size = lz77_output->litlen_buffer_size;
-
+	
 	// update the statically defined litlen_dword_size
 	litlen_dword_size = litlen_buffer_dword_size;
 
@@ -92,7 +92,7 @@ LPE_HUFFMAN_VFLAB* lpe_huffman_create_litlen_histogram(LPE_LZ77_LZ77_OUTPUT_PACK
 	}
 
 	/* Up to here, we have filled up VFLAB's values and frequencies. 
-	   To find their level, we have to sort them from max to min, and then, we would assign bits to them */
+	   To find their level, we have to sort them based on frequency from max to min, and then, we would assign bits to them */
 
 	lpe_huffman_lexicographically_sort_vflab_by_frequency(litlen_vflab, LPE_HUFFMAN_LITERAL_LENGTH_MAX_ENTRIES);
 
@@ -102,14 +102,14 @@ LPE_HUFFMAN_VFLAB* lpe_huffman_create_litlen_histogram(LPE_LZ77_LZ77_OUTPUT_PACK
 	// check the non empty count
 	if (non_empty_entries_count == 0)
 	{
-		printf("literal length vflab shows all entries zero --> fatal error\n ");
+		printf("literal length vflab shows all entries zero --> fatal error\n");
 		lpe_free_allocated_mem(litlen_vflab);
 		return LPE_HUFFMAN_NULL;
 	}
 
 	// get the L_(n-1) and L_(n) borders
 	UINT_32 down = 0;
-	UINT_32 up   = 0;
+	UINT_32 up   = 0;	
 	lpe_huffman_nodes_number_two_borders(non_empty_entries_count, &down, &up);
 
 	// set back loop index to zero
@@ -266,7 +266,7 @@ huffman_local void lpe_huffman_lexicographically_sort_vflab_by_frequency(LPE_HUF
 		while (loop_counter < search_border)
 		{
 			// in case the frequency of lower index entry is larger, swap it with the next index entry
-			if ((vflab[loop_counter].frequency) > vflab[loop_counter + 1].frequency)
+			if ((vflab[loop_counter].frequency) < vflab[loop_counter + 1].frequency)
 				LPE_HUFFMAN_SWAP_VFLAB((&vflab[loop_counter]), (&vflab[loop_counter + 1]));
 
 			// lexicographically_sort: if frequency of lower index entry is equal to that of the higher index entry, check out their value. Lower value goes ahead
@@ -1566,7 +1566,7 @@ void lpe_huffman_dump_vflab(LPE_HUFFMAN_VFLAB* vflab, UINT_32 entries)
 		lpe_huffman_bit_dumper(&vflab[i], tmp_buffer);
 
 		// print all fields out
-		printf("INDEX%i -> VALUE: %i | FREQ: %i | LEVEL: %i | ASSIGNED REVERSED BITS: %s\n", i, vflab[i].value, vflab[i].frequency, vflab[i].level, tmp_buffer);
+		printf("INDEX: %i -> VALUE: %i | FREQ: %i | LEVEL: %i | ASSIGNED REVERSED BITS: %s\n", i, vflab[i].value, vflab[i].frequency, vflab[i].level, tmp_buffer);
 		
 		// go to the next entry
 		i++;

@@ -5,11 +5,8 @@
 #include "LPE_STRING_UNIT.h"
 #include "LPE_COMPRESSOR.h"
 
-#define _CRT_SECURE_NO_WARNINGS
-#pragma warning(disable:4996)
-#pragma warning(disable:4715)
-
 //***********************************************************************************************************
+
 /* table of CRCs of all 8-bit integers */
 static UINT_32 crc_table[256];
 

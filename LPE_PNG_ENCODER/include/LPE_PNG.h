@@ -89,12 +89,12 @@ typedef struct _LPE_CHUNK {
 //***********************************************************************************************************
 
 typedef struct _LPE_PNG {
-	UINT_8      signature[8];
-	UINT_8      number_of_chunks;
-	LPE_CHUNK*  chunks_table;
-	UINT_8*     compressed_data_buffer;
-	UINT_32     compressed_data_counter;
-	UINT_32     total_size;
+	UINT_8     signature[8];
+	UINT_8     number_of_chunks;
+	LPE_CHUNK* chunks_table;
+	UINT_8*    compressed_data_buffer;
+	UINT_32    compressed_data_counter;
+	UINT_32    total_size;
 } LPE_PNG;
 
 //*********************************************************************************************************** global functions

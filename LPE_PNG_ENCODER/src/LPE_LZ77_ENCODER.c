@@ -25,7 +25,7 @@ lz77_local UINT_32 lpe_lz77_string_length(UINT_8* str)
 
 //***********************************************************************************************************
 
-lz77_local void lpe_lz77_zero_dictionary_metrics(void)
+void lpe_lz77_zero_dictionary_metrics(void)
 {
 	position_of_longest_match           = LPE_LZ77_NO_MATCH;
 	reference_position_of_longest_match = ~0;
@@ -128,7 +128,7 @@ lz77_local UINT_32 lpe_lz77_find_longest_match(LPE_SLIDING_WINDOW* sw)
 			look_ahead_buffer_word[j] = *look_ahead_buffer_pointer++;
 			j++;
 		}
-
+		
 		// which size has the current word
 		UINT_32 look_ahead_buffer_word_size = lpe_lz77_string_length(look_ahead_buffer_word);
 
