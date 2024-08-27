@@ -26,15 +26,15 @@
 
 //***********************************************************************************************************
 
-#define LPE_UNDEFINED_MARKER   0xFF
-#define LPE_ERROR_ID           0xFE
-#define LPE_NULL               0x00
-#define LPE_FILTER_TYPE_BYTE   0x01
-#define LPE_ABS(NUMBER)        ((NUMBER >= 0) ? (NUMBER) : (-NUMBER))
+#define LPE_UNDEFINED_MARKER 0xFF
+#define LPE_ERROR_ID         0xFE
+#define LPE_NULL             0x00
+#define LPE_FILTER_TYPE_BYTE 0x01
+#define LPE_ABS(NUMBER)      ((NUMBER >= 0) ? (NUMBER) : (-NUMBER))
 
 //***********************************************************************************************************
 
-#define LPE_ALIGN(ON, NUM) ((NUM + (ON - 1)) & (~(ON - 1)))
+#define LPE_ALIGN(ON, NUM)  ((NUM + (ON - 1)) & (~(ON - 1)))
 #define LPE_ALIGN_0x04(NUM) LPE_ALIGN(0x04, NUM)
 #define LPE_ALIGN_0x08(NUM) LPE_ALIGN(0x08, NUM)
 #define LPE_ALIGN_0x10(NUM) LPE_ALIGN(0x10, NUM)
@@ -56,7 +56,7 @@
     memcpy(&__LPE_TYPE_OBJECT__, OBJ_PTR_1, sizeof(LPE_TYPE));     \
     memcpy(OBJ_PTR_1, OBJ_PTR_2, sizeof(LPE_TYPE));                \
     memcpy(OBJ_PTR_2, &__LPE_TYPE_OBJECT__, sizeof(LPE_TYPE));     \
-} while(0)
+} while(LPE_FALSE)
 
 //***********************************************************************************************************
 

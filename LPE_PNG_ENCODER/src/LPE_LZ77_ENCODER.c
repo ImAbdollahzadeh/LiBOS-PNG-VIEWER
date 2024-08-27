@@ -80,7 +80,7 @@ _lpe_lz77_search_buffer_contains_this_word_skip_to_the_next_combination:
 		alias_word_size = word_size;
 	}
 
-	// if we made up until here, there was no matched combination in the SB for the provided LAB's word
+	// if we made up to here, there was no matched combination in the SB for the provided LAB's word
 	return LPE_FALSE;
 }
 
@@ -225,8 +225,8 @@ lz77_local UINT_32 lpe_lz77_this_index_is_in_dictionary(UINT_32 index)
 		i++;
 	}
 
-	// we made until this point, then return false
-	return ~0;
+	// we made to this point, then return false
+	return LPE_LZ77_INDEX_NOT_IN_DICTIONARY;
 }
 
 //***********************************************************************************************************
@@ -258,7 +258,7 @@ lz77_local void lpe_lz77_put_lz77_data_into_extracted_data_buffer(LPE_LZ77_BUFFE
 		UINT_32 dict_holder = lpe_lz77_this_index_is_in_dictionary(i);
 
 		// we hit a length-distance entry
-		if (dict_holder != ~0)
+		if (dict_holder != LPE_LZ77_INDEX_NOT_IN_DICTIONARY)
 		{
 			/* first comes a lenght entry in litlen buffer 
 			   and then a distance entry in the distance buffer */

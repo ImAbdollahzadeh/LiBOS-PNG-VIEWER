@@ -24,14 +24,22 @@ void bitmap_reader_parse_bmp_file(const char* address_of_bmp)
 	}
 
 	unsigned char info[54];
-	fread(info, sizeof(UINT_8), 54, f);
+	size_t bytes_read = fread(info, sizeof(UINT_8), 54, f);
+	if (54 != bytes_read)
+	{
+		printf("wrong number of bytes copied from bmp image --> fatal error\n");
+		fclose(f);
+		return;
+	}
 	__bmp_width          = *(UINT_32*)&info[18];
 	__bmp_height         = *(UINT_32*)&info[22];
 	__bmp_byte_per_pixel = __bmp_bitdepth = (*(UINT_8 *)&info[28]) >> 3;
 	__bmp_colortype      = 2;
 	UINT_32 size         = LPE_WINDOW_ALIGN((__bmp_width * __bmp_height * __bmp_byte_per_pixel));
 	__bmp_data           = (UINT_8*)lpe_zero_allocation(size);
-	fread(__bmp_data, sizeof(UINT_8), size, f);
+	bytes_read           = fread(__bmp_data, sizeof(UINT_8), size, f);
+	if (bytes_read != size)
+		printf("wrong number of bytes copied from bmp's data --> fatal error\n");
 	fclose(f);
 }
 

@@ -23,12 +23,13 @@
 #define LPE_LZ77_IS_LITERAL(VAL)                     (((VAL) >= 0) && ((VAL) < LPE_LZ77_END_OF_LITERALS))
 #define LPE_LZ77_IS_LENGTH(VAL)                      (((VAL) >= LPE_LZ77_BEGINING_OF_LENGTH) && ((VAL) <= LPE_LZ77_END_OF_LENGTH))
 #define LPE_LZ77_TERMINATE_ENTRY                     256
+#define LPE_LZ77_INDEX_NOT_IN_DICTIONARY             ~0
 
 //***********************************************************************************************************
 
 #define LPE_LZ77_SWAP_DICTIONARY_ENTRY(LPE_LZ77_DICTIONARY_WORD_1, LPE_LZ77_DICTIONARY_WORD_2) do {         \
-	LPE_SWAP_TWO_OBJECTS(LPE_LZ77_DICTIONARY_WORD, LPE_LZ77_DICTIONARY_WORD_1, LPE_LZ77_DICTIONARY_WORD_2); \
-} while(0)
+    LPE_SWAP_TWO_OBJECTS(LPE_LZ77_DICTIONARY_WORD, LPE_LZ77_DICTIONARY_WORD_1, LPE_LZ77_DICTIONARY_WORD_2); \
+} while(LPE_FALSE)
 
 //***********************************************************************************************************
 

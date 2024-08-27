@@ -19,7 +19,7 @@
     UINT_8 __LPD_RENDERER_TMP_ = __LPD_RENDERER_BYTE1_;                            \
     __LPD_RENDERER_BYTE1_      = __LPD_RENDERER_BYTE2_;                            \
     __LPD_RENDERER_BYTE2_      = __LPD_RENDERER_TMP_;                              \
-} while(0)
+} while(LPD_FALSE)
 
 //***********************************************************************************************************
 

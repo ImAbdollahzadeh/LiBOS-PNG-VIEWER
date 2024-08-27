@@ -12,8 +12,8 @@
 
 //*********************************************************************************************************** global functions
 
-BOOL lpe_png_strcmp(const char* str1, const char* str2);
-UINT_32 lpe_string_size(UINT_8* str);
+BOOL    lpe_png_strcmp  (const char* str1, const char* str2);
+UINT_32 lpe_string_size (UINT_8* str);
 
 //***********************************************************************************************************
 

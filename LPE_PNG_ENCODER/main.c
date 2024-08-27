@@ -18,7 +18,7 @@ int main(void)
 
 	// define a LPE_STREAM_WRITER
 	LPE_STREAM_WRITER stream_writer = { LPE_NULL, LPE_OUTPUT_ADDRESS };
-	stream_writer.file = fopen(stream_writer.path_to_write, "wb+" );
+	stream_writer.file = fopen(stream_writer.path_to_write, "wb+");
 	
 	// write the png signature
 	lpe_signature_writer(&stream_writer);

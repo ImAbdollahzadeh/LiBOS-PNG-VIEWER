@@ -25,15 +25,15 @@
 //***********************************************************************************************************
 
 #define LPE_HUFFMAN_SWAP_VFLAB(VFLAB_PTR_1, VFLAB_PTR_2) do {          \
-	LPE_SWAP_TWO_OBJECTS(LPE_HUFFMAN_VFLAB, VFLAB_PTR_1, VFLAB_PTR_2); \
-} while(0)
+    LPE_SWAP_TWO_OBJECTS(LPE_HUFFMAN_VFLAB, VFLAB_PTR_1, VFLAB_PTR_2); \
+}while(LPE_FALSE)
 
 //***********************************************************************************************************
 
 #define LPE_HUFFMAN_ASSERT(VAL_ONE, VAL_TWO) do { \
-	if (VAL_ONE != VAL_TWO)                       \
-		printf("ASSERTION FAILED\n");             \
-} while(0)
+    if (VAL_ONE != VAL_TWO)                       \
+        printf("ASSERTION FAILED\n");             \
+} while(LPE_FALSE)
 
 //***********************************************************************************************************
 
