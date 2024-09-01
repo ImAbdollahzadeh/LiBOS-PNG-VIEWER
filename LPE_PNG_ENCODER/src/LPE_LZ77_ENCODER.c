@@ -86,7 +86,7 @@ _lpe_lz77_search_buffer_contains_this_word_skip_to_the_next_combination:
 
 //***********************************************************************************************************
 
-lz77_local UINT_32 lpe_lz77_find_longest_match(LPE_SLIDING_WINDOW* sw)
+lz77_local UINT_32 lpe_lz77_find_longest_match(LPE_SLIDING_WINDOW* sw, UINT_32 search_window_end)
 {
 	// initial sanity check to discard the still small SB 
 	if (sw->search_buffer_size <= LPE_LZ77_SEARCH_BUFFER_IS_STILL_NOT_READY)
@@ -97,7 +97,7 @@ lz77_local UINT_32 lpe_lz77_find_longest_match(LPE_SLIDING_WINDOW* sw)
 
 	// define several aliases for LPE_SLIDING_WINDOW data
 	UINT_8* look_ahead_buffer      = sw->look_ahead_buffer;
-	UINT_32 look_ahead_buffer_size = lpe_lz77_string_length(look_ahead_buffer);
+	UINT_32 look_ahead_buffer_size = search_window_end - (UINT_32)(sw->look_ahead_buffer - sw->search_buffer_end);    //lpe_lz77_string_length(look_ahead_buffer);
 	UINT_8* search_buffer_end      = sw->search_buffer_end;
 	UINT_32 search_buffer_size     = sw->search_buffer_size;
 
@@ -130,7 +130,7 @@ lz77_local UINT_32 lpe_lz77_find_longest_match(LPE_SLIDING_WINDOW* sw)
 		}
 		
 		// which size has the current word
-		UINT_32 look_ahead_buffer_word_size = lpe_lz77_string_length(look_ahead_buffer_word);
+		UINT_32 look_ahead_buffer_word_size = maximum_end; //lpe_lz77_string_length(look_ahead_buffer_word);
 
 		// define a boolean dafaulted to false 
 		BOOL contain = LPE_FALSE;
@@ -184,7 +184,7 @@ lz77_local void lpe_lz77_lz77_algorithm(LPE_SLIDING_WINDOW* sw, UINT_32 buffer_s
 	while (sw->search_buffer_size <= buff_size)
 	{
 		// update the longest_match
-		longest_match = lpe_lz77_find_longest_match(sw);
+		longest_match = lpe_lz77_find_longest_match(sw, buff_size);
 
 		// did we find any match?
 		if (position_of_longest_match)

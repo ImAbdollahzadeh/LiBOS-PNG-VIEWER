@@ -9,12 +9,24 @@
 
 int main(void)
 {
-    char filtered_data[] = {'0','1','1','1','1','1','1','1','1','1','2','1','6','6','6','6','6','6','6','6','6','6','6','6','6','6','6','6','6','6'};
-    unsigned int filtered_data_bytes = 30;
+    // char filtered_data[] = {'0','1','1','1','1','1','1','1','1','1','2','1','6','6','6','6','6','6','6','6','6','6','6','6','6','6','6','6','6','6'};
+    // unsigned int filtered_data_bytes = 30;
 
-    LPE_LZ77_LZ77_OUTPUT_PACKAGE lz77_output = lpe_lz77_start(filtered_data, filtered_data_bytes);
-	lpe_zero_bit_metrics();
-	LPE_HUFFMAN_VFLAB* litlen_vflab = lpe_huffman_create_litlen_histogram(&lz77_output);
+    // LPE_LZ77_LZ77_OUTPUT_PACKAGE lz77_output = lpe_lz77_start(filtered_data, filtered_data_bytes);
+	// lpe_zero_bit_metrics();
+	// LPE_HUFFMAN_VFLAB* litlen_vflab = lpe_huffman_create_litlen_histogram(&lz77_output);
 
-    lpe_huffman_dump_vflab(litlen_vflab, LPE_HUFFMAN_LITERAL_LENGTH_MAX_ENTRIES);
+    // lpe_huffman_dump_vflab(litlen_vflab, LPE_HUFFMAN_LITERAL_LENGTH_MAX_ENTRIES);
+
+    LPE_HUFFMAN_VFLAB vflab[8];
+	vflab[0].frequency = 19;
+	vflab[1].frequency = 19;
+	vflab[2].frequency = 6;
+	vflab[3].frequency = 5;
+	vflab[4].frequency = 2;
+	vflab[5].frequency = 2;
+	vflab[6].frequency = 2;
+	vflab[7].frequency = 1;
+    
+    lpe_huffman_construct_virtual_tree_for_frequency_sorted_vflab(vflab, 8);
 }

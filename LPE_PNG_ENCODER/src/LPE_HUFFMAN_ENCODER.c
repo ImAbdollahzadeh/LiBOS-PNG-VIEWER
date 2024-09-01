@@ -19,24 +19,72 @@ huffman_local UINT_32*           code_bit_lengths            = LPE_HUFFMAN_NULL;
 
 //***********************************************************************************************************
 
+#define LPE_HUFFMAN_HANDLE_RIGHT_NODES                                                             \
+    nd  = lpe_huffman_new_node();                                                                  \
+	nd->leaf  = LPE_FALSE;                                                                         \
+	nd->bitstream = 0;                                                                             \
+	nd->right = table[n - 1];                                                                      \
+	nd->left  = table[n - 2];                                                                      \
+	nd->value = table[n - 1]->value + table[n - 2]->value;                                         \
+	table[n - 2] = nd;                                                                             \
+	lpe_huffman_all_assigned_virtual_nodes[lpe_huffman_all_assigned_virtual_nodes_counter++] = nd; \
+	n--;
+
+#define LPE_HUFFMAN_HANDLE_LEFT_NODES                                                              \
+    nd  = lpe_huffman_new_node();                                                                  \
+	nd->leaf  = LPE_FALSE;                                                                         \
+	nd->bitstream = 0;                                                                             \
+	nd->right = table[n - 2];                                                                      \
+	nd->left  = table[n - 3];                                                                      \
+	nd->value = table[n - 2]->value + table[n - 3]->value;                                         \
+	table[n - 3] = nd;                                                                             \
+	table[n - 2] = table[n - 1];                                                                   \
+	lpe_huffman_all_assigned_virtual_nodes[lpe_huffman_all_assigned_virtual_nodes_counter++] = nd; \
+	n--;          
+
+//***********************************************************************************************************
+
+huffman_local UINT_32           lpe_huffman_all_assigned_virtual_nodes_counter = 0;
+huffman_local LPE_VIRTUAL_NODE* lpe_huffman_all_assigned_virtual_nodes         [KB(64)];
+huffman_local char              lpe_huffman_bits_string                        [32];
+huffman_local UINT_32           lpe_huffman_vflab_entry_and_tree_node_counter  = 0;
+
+//***********************************************************************************************************
+
+huffman_local UINT_32 lpe_huffman_unsigned_ineger_2_to_the_power(UINT_32 n)
+{
+	UINT_32 res = 1;
+	for (size_t i = 0; i < n; i++)
+		res *= 2;
+	return res;	
+}
+
+//***********************************************************************************************************
+
 huffman_local void lpe_huffman_nodes_number_two_borders(UINT_32 nodes_number, UINT_32* down, UINT_32* up)
 {
-	// sanity check for especial case of N = 1
-	if (nodes_number <= 1)
-	{
-		*down = 0;
-		*up   = 1;
-		return;
-	}
-	UINT_32 d = 2;
-	UINT_32 i = 0;
-	while (d < nodes_number)
-	{
-		d <<= 1;
-		i++;
-	}
-	*up   = i--;
-	*down = i;
+	// // sanity check for especial case of N = 1
+	// if (nodes_number <= 1)
+	// {
+	// 	*down = 0;
+	// 	*up   = 1;
+	// 	return;
+	// }
+	// UINT_32 d = 2;
+	// UINT_32 i = 0;
+	// while (d < nodes_number)
+	// {
+	// 	d <<= 1;
+	// 	i++;
+	// }
+	// *up   = i--;
+	// *down = i;
+
+	UINT_32 d = 0;
+	while(nodes_number < lpe_huffman_unsigned_ineger_2_to_the_power(d))
+		d++;
+	*up   = d--;
+	*down = d;	
 }
 
 //***********************************************************************************************************
@@ -107,49 +155,8 @@ LPE_HUFFMAN_VFLAB* lpe_huffman_create_litlen_histogram(LPE_LZ77_LZ77_OUTPUT_PACK
 		return LPE_HUFFMAN_NULL;
 	}
 
-	// get the L_(n-1) and L_(n) borders
-	UINT_32 down = 0;
-	UINT_32 up   = 0;	
-	lpe_huffman_nodes_number_two_borders(non_empty_entries_count, &down, &up);
-
-	// set back loop index to zero
-	i = 0;
-
-	// set levels (L_(n)-N goes into down level while 2N-L_(n) goes into up level)
-	UINT_32 L_down = up - non_empty_entries_count;
-	UINT_32 L_up   = (non_empty_entries_count << 1) - up;
-
-	while (i < non_empty_entries_count)
-	{
-		litlen_vflab[i].level = (i < L_down) ? down : up;
-		i++;
-	}
-
-	// set back loop index to zero
-	i = 0;
-
-	// define a bit holder
-	UINT_32 bit = 0;
-
-	// assign bits to upper level in tree
-	while (i < L_down)
-	{
-		litlen_vflab[i].assigned_reversed_bits = (UINT_16)(lpe_bit_reverse(bit, (litlen_vflab[i].level)));
-		bit++;
-		i++;
-	}
-
-	// shift one level down
-	bit++;
-	bit <<= 1;
-
-	// assign bits to lower level in tree
-	while ((i >= L_down) && (i < non_empty_entries_count))
-	{
-		litlen_vflab[i].assigned_reversed_bits = (UINT_16)(lpe_bit_reverse(bit, (litlen_vflab[i].level)));
-		bit++;
-		i++;
-	}
+	// assign bitstream and level to each 'non-zero' vflab entry 
+	lpe_huffman_construct_virtual_tree_for_frequency_sorted_vflab(litlen_vflab, non_empty_entries_count);
 
 	// return the constructed litlen vflab
 	return litlen_vflab;
@@ -202,51 +209,10 @@ LPE_HUFFMAN_VFLAB* lpe_huffman_create_dist_histogram(LPE_LZ77_LZ77_OUTPUT_PACKAG
 		return LPE_HUFFMAN_NULL;
 	}
 
-	// get the L_(n-1) and L_(n) borders
-	UINT_32 down = 0;
-	UINT_32 up   = 0;
-	lpe_huffman_nodes_number_two_borders(non_empty_entries_count, &down, &up);
+	// assign bitstream and level to each 'non-zero' vflab entry 
+	lpe_huffman_construct_virtual_tree_for_frequency_sorted_vflab(dist_vflab, non_empty_entries_count);
 
-	// set back loop index to zero
-	i = 0;
-
-	// set levels (L_(n)-N goes into down level while 2N-L_(n) goes into up level)
-	UINT_32 L_down = up - non_empty_entries_count;
-	UINT_32 L_up   = (non_empty_entries_count << 1) - up;
-
-	while (i < non_empty_entries_count)
-	{
-		dist_vflab[i].level = (i < L_down) ? down : up;
-		i++;
-	}
-
-	// set back loop index to zero
-	i = 0;
-
-	// define a bit holder
-	UINT_32 bit = 0;
-
-	// assign bits to upper level in tree
-	while (i < L_down)
-	{
-		dist_vflab[i].assigned_reversed_bits = lpe_bit_reverse(bit, (dist_vflab[i].level));
-		bit++;
-		i++;
-	}
-
-	// shift one level down
-	bit++;
-	bit <<= 1;
-
-	// assign bits to lower level in tree
-	while ((i >= L_down) && (i < non_empty_entries_count))
-	{
-		dist_vflab[i].assigned_reversed_bits = lpe_bit_reverse(bit, (dist_vflab[i].level));
-		bit++;
-		i++;
-	}
-
-	// return the constructed dist vflab
+	// return the constructed litlen vflab
 	return dist_vflab;
 }
 
@@ -796,49 +762,8 @@ void lpe_huffman_set_assigned_bits(LPE_HUFFMAN_VFLAB* in_buffer, UINT_32 elimina
 	// now v is set to the start of the non-LPE_HUFFMAN_NEGLECTED_DWORD entry. Get the number of non empty entries in vflab
 	UINT_32 non_empty_entries_count = lpe_huffman_find_non_empty_vflab_entries(v, eliminated_count);
 
-	// get the L_(n-1) and L_(n) borders
-	UINT_32 down = 0;
-	UINT_32 up = 0;
-	lpe_huffman_nodes_number_two_borders(non_empty_entries_count, &down, &up);
-
-	// set back loop index to zero
-	i = 0;
-
-	// set levels (L_(n)-N goes into down level while 2N-L_(n) goes into up level)
-	UINT_32 L_down = up - non_empty_entries_count;
-	UINT_32 L_up   = (non_empty_entries_count << 1) - up;
-
-	while (i < non_empty_entries_count)
-	{
-		v[i].level = (i < L_down) ? down : up;
-		i++;
-	}
-
-	// set back loop index to zero
-	i = 0;
-
-	// define a bit holder
-	UINT_32 bit = 0;
-
-	// assign bits to upper level in tree
-	while (i < L_down)
-	{
-		dist_vflab[i].assigned_reversed_bits = (UINT_16)(lpe_bit_reverse(bit, (dist_vflab[i].level)));
-		bit++;
-		i++;
-	}
-
-	// shift one level down
-	bit++;
-	bit <<= 1;
-
-	// assign bits to lower level in tree
-	while ((i >= L_down) && (i < non_empty_entries_count))
-	{
-		dist_vflab[i].assigned_reversed_bits = (UINT_16)(lpe_bit_reverse(bit, (dist_vflab[i].level)));
-		bit++;
-		i++;
-	}
+	// assign bitstream and level to each 'non-zero' vflab entry 
+	lpe_huffman_construct_virtual_tree_for_frequency_sorted_vflab(v, non_empty_entries_count);
 }
 
 //***********************************************************************************************************
@@ -980,49 +905,8 @@ void lpe_huffman_post_process_two_trees_vflab(LPE_HUFFMAN_VFLAB* vflab, UINT_32 
 	// get the non_empty_entries_count
 	lpe_huffman_find_non_empty_vflab_entries(cpy_vflab, 19);
 
-	// get the L_(n-1) and L_(n) borders
-	UINT_32 down = 0;
-	UINT_32 up   = 0;
-	lpe_huffman_nodes_number_two_borders(non_empty_entries_count, &down, &up);
-
-	// set back loop index to zero
-	i = 0;
-
-	// set levels (L_(n)-N goes into down level while 2N-L_(n) goes into up level)
-	UINT_32 L_down = up - non_empty_entries_count;
-	UINT_32 L_up = (non_empty_entries_count << 1) - up;
-
-	while (i < non_empty_entries_count)
-	{
-		cpy_vflab[i].level = (i < L_down) ? down : up;
-		i++;
-	}
-
-	// set back loop index to zero
-	i = 0;
-
-	// define a bit holder
-	UINT_32 bit = 0;
-
-	// assign bits to upper level in tree
-	while (i < L_down)
-	{
-		cpy_vflab[i].assigned_reversed_bits = (UINT_16)(lpe_bit_reverse(bit, (cpy_vflab[i].level)));
-		bit++;
-		i++;
-	}
-
-	// shift one level down
-	bit++;
-	bit <<= 1;
-
-	// assign bits to lower level in tree
-	while ((i >= L_down) && (i < non_empty_entries_count))
-	{
-		cpy_vflab[i].assigned_reversed_bits = (UINT_16)(lpe_bit_reverse(bit, (cpy_vflab[i].level)));
-		bit++;
-		i++;
-	}
+	// assign bitstream and level to each 'non-zero' vflab entry 
+	lpe_huffman_construct_virtual_tree_for_frequency_sorted_vflab(cpy_vflab, non_empty_entries_count);
 
 	/* \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 	\\\\    after elimination of tagged entries:                                                                                                               \\\\
@@ -1572,5 +1456,208 @@ void lpe_huffman_dump_vflab(LPE_HUFFMAN_VFLAB* vflab, UINT_32 entries)
 		i++;
 	}
 }
+
+//***********************************************************************************************************
+
+huffman_local char* lpe_huffman_num_to_bit_string(UINT_32 n, UINT_32 stop_position)
+{
+	UINT_32 i = 0;
+	while (stop_position)
+	{
+		UINT_8 bit = (UINT_8)((n >> i) & 1);
+		char ch = bit ? '1' : '0';
+		lpe_huffman_bits_string[stop_position - 1] = ch;
+		i++;
+		stop_position--;
+	}
+	lpe_huffman_bits_string[i] = 0;
+	return lpe_huffman_bits_string;
+} 
+
+//***********************************************************************************************************
+
+huffman_local LPE_VIRTUAL_NODE* lpe_huffman_new_node()
+{
+	return (LPE_VIRTUAL_NODE*)lpe_zero_allocation(sizeof(LPE_VIRTUAL_NODE));
+}
+
+//***********************************************************************************************************
+
+huffman_local void lpe_huffman_free_node(LPE_VIRTUAL_NODE* node)
+{
+	if (node)
+	{
+		lpe_free_allocated_mem(node);
+		node = LPE_NULL;
+	}
+	return;
+}
+
+//***********************************************************************************************************
+
+huffman_local void lpe_huffman_free_tree(LPE_VIRTUAL_NODE* n)
+{
+	for (size_t i = 0; i < lpe_huffman_all_assigned_virtual_nodes_counter; i++)
+		lpe_huffman_free_node(lpe_huffman_all_assigned_virtual_nodes[i]);
+}
+
+//***********************************************************************************************************
+
+huffman_local void lpe_huffman_assign_bitstream(LPE_VIRTUAL_NODE* n, UINT_32 bits)
+{
+	if (n->leaf == LPE_TRUE)
+	{
+		n->bitstream = bits;
+		// printf("bits: %u, freq: \"%u\"\n", n->bitstream, n->value);
+		return;
+	}	
+	lpe_huffman_assign_bitstream(n->right, (bits << 1) | 1);
+	lpe_huffman_assign_bitstream(n->left,  (bits << 1) | 0);
+}
+
+//***********************************************************************************************************
+
+huffman_local void lpe_huffman_hand_bitstream_to_vflab(LPE_HUFFMAN_VFLAB* vflab, UINT_32 level, LPE_VIRTUAL_NODE* n)
+{
+	if (n->leaf == LPE_TRUE)
+	{
+		vflab[lpe_huffman_vflab_entry_and_tree_node_counter].assigned_reversed_bits = (UINT_16)(lpe_bit_reverse(n->bitstream, level));
+		vflab[lpe_huffman_vflab_entry_and_tree_node_counter].level = level;
+		lpe_huffman_vflab_entry_and_tree_node_counter++;
+		return;
+	}
+	lpe_huffman_hand_bitstream_to_vflab(vflab, level + 1, n->left);
+	lpe_huffman_hand_bitstream_to_vflab(vflab, level + 1, n->right);
+}
+
+//***********************************************************************************************************
+
+void lpe_huffman_construct_virtual_tree_for_frequency_sorted_vflab(LPE_HUFFMAN_VFLAB* vflab, UINT_32 non_empty_number)
+{
+	// define a temporary LPE_VIRTUAL_NODE holder
+	LPE_VIRTUAL_NODE* nd = LPE_NULL;
+
+	// define an indexer
+	UINT_32 i = 0;
+
+	// make an alias for number of nodes
+	UINT_32 n = non_empty_number;
+
+	// define a table where each entry is a node and it is corresponds to a vflab entry
+	LPE_VIRTUAL_NODE** table = (LPE_VIRTUAL_NODE**)lpe_zero_allocation(n * sizeof(LPE_VIRTUAL_NODE*));
+
+	// create nodes corresponding to vflab entries and put them sequentially in table
+	for (i = 0; i < n; i++)
+	{
+		nd            = lpe_huffman_new_node();
+		lpe_huffman_all_assigned_virtual_nodes[lpe_huffman_all_assigned_virtual_nodes_counter++] = nd;
+		nd->leaf      = LPE_TRUE;
+		nd->bitstream = 0;
+		nd->right     = LPE_NULL;
+		nd->left      = LPE_NULL;
+		nd->value     = vflab[i].frequency;
+		table[i]      = nd;
+	}
+	
+	// handle last two nodes statically as beginner
+	LPE_HUFFMAN_HANDLE_RIGHT_NODES;
+
+	// loop up until there is only 3 nodes left
+	while(n > 3)
+	{
+		// handle two right-most nodes
+		if ((table[n - 1]->value + table[n - 2]->value) <= (table[n - 2]->value + table[n - 3]->value))
+		{
+			LPE_HUFFMAN_HANDLE_RIGHT_NODES;
+		}
+
+		// handle two left-most nodes
+		else
+		{
+			LPE_HUFFMAN_HANDLE_LEFT_NODES;
+		}
+	}
+
+	// handle last three nodes and finish
+	// handle two right-most nodes
+	if ((table[n - 1]->value + table[n - 2]->value) <= (table[n - 2]->value + table[n - 3]->value))
+	{
+		LPE_HUFFMAN_HANDLE_RIGHT_NODES;
+	}
+
+	// handle two left-most nodes
+	else
+	{
+		LPE_HUFFMAN_HANDLE_LEFT_NODES;
+	}
+
+	// create final node which is the root uppest point of the tree
+	LPE_HUFFMAN_HANDLE_RIGHT_NODES;
+
+	// determine bit stream for every node in the tree
+	lpe_huffman_assign_bitstream(*table, 0);
+
+	// update acquired bit stream to that of vflab
+	lpe_huffman_hand_bitstream_to_vflab(vflab, 0, *table);
+
+	// debug nodes
+	// for (i = 0; i < non_empty_number; i++)
+	// 	printf("freq: %u, level: %u, bits: %s\n", vflab[i].frequency, vflab[i].level, lpe_huffman_num_to_bit_string(vflab[i].assigned_reversed_bits, vflab[i].level));
+
+	// free nodes of the tree (i.e. free tree)
+	lpe_huffman_free_tree(*table);
+
+	// free table
+	lpe_free_allocated_mem(table);
+}
+
+//***********************************************************************************************************
+
+// // get the L_(n-1) and L_(n) borders
+	// UINT_32 down = 0;
+	// UINT_32 up   = 0;	
+	// lpe_huffman_nodes_number_two_borders(non_empty_entries_count, &down, &up);
+
+	// // set back loop index to zero
+	// i = 0;
+
+	// // set levels (L_(n)-N goes into down level while 2N-L_(n) goes into up level)
+	// UINT_32 L_down = up - non_empty_entries_count;
+	// UINT_32 L_up   = (non_empty_entries_count << 1) - up;
+
+	// while (i < non_empty_entries_count)
+	// {
+	// 	litlen_vflab[i].level = (i < L_down) ? down : up;
+	// 	i++;
+	// }
+
+	// // set back loop index to zero
+	// i = 0;
+
+	// // define a bit holder
+	// UINT_32 bit = 0;
+
+	// // assign bits to upper level in tree
+	// while (i < L_down)
+	// {
+	// 	litlen_vflab[i].assigned_reversed_bits = (UINT_16)(lpe_bit_reverse(bit, (litlen_vflab[i].level)));
+	// 	bit++;
+	// 	i++;
+	// }
+
+	// // shift one level down
+	// bit++;
+	// bit <<= 1;
+
+	// // assign bits to lower level in tree
+	// while ((i >= L_down) && (i < non_empty_entries_count))
+	// {
+	// 	litlen_vflab[i].assigned_reversed_bits = (UINT_16)(lpe_bit_reverse(bit, (litlen_vflab[i].level)));
+	// 	bit++;
+	// 	i++;
+	// }
+
+	// // return the constructed litlen vflab
+	// return litlen_vflab;
 
 //***********************************************************************************************************

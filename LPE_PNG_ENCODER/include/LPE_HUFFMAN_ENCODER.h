@@ -59,6 +59,16 @@ typedef struct _LPE_HUFFMAN_EXTRA_BITS {
 	UINT_32 bit_stream;
 } LPE_HUFFMAN_EXTRA_BITS;
 
+//***********************************************************************************************************
+
+typedef struct _LPE_VIRTUAL_NODE {
+	struct _LPE_VIRTUAL_NODE* right;
+	struct _LPE_VIRTUAL_NODE* left;
+	BOOL                      leaf;
+	UINT_32                   value;
+	UINT_32                   bitstream;
+} LPE_VIRTUAL_NODE;
+
 //*********************************************************************************************************** local functions
 
 huffman_local UINT_32            lpe_huffman_string_length                             (UINT_8* str);
@@ -74,19 +84,25 @@ huffman_local LPE_HUFFMAN_VFLAB* lpe_huffman_find_dist_in_vflab_buffer          
 huffman_local UINT_32            lpe_huffman_first_occurance_of_this_number            (UINT_32 num, UINT_32* table, UINT_32 entries);
 huffman_local UINT_32            lpe_huffman_find_non_empty_code_bit_lengths_entries   (void);
 huffman_local void               lpe_huffman_bit_dumper                                (LPE_HUFFMAN_VFLAB* vflab_entry, char* out);
+huffman_local char*              lpe_huffman_num_to_bit_string                         (UINT_32 n, UINT_32 stop_position);
+huffman_local LPE_VIRTUAL_NODE*  lpe_huffman_new_node                                  ();
+huffman_local void               lpe_huffman_free_node                                 (LPE_VIRTUAL_NODE* node);
+huffman_local void               lpe_huffman_assign_bitstream                          (LPE_VIRTUAL_NODE* n, UINT_32 bits);
+huffman_local void               lpe_huffman_hand_bitstream_to_vflab                   (LPE_HUFFMAN_VFLAB* vflab, UINT_32 level, LPE_VIRTUAL_NODE* n);
 
 //*********************************************************************************************************** global functions
 
-LPE_HUFFMAN_VFLAB* lpe_huffman_create_litlen_histogram       (LPE_LZ77_LZ77_OUTPUT_PACKAGE* lz77_output);
-LPE_HUFFMAN_VFLAB* lpe_huffman_create_dist_histogram         (LPE_LZ77_LZ77_OUTPUT_PACKAGE* lz77_output);
-void               lpe_huffman_construct_huffman_binary_tree (UINT_32** buffer, UINT_32* bits_number, TREE_ID id);
-void               lpe_huffman_concatenate_two_bitstreams    (UINT_32* target, UINT_32* bit_stream_1, UINT_32* bit_stream_2, UINT_32 bits_number_1, UINT_32 bits_number_2);
-void               lpe_huffman_free_vflabs                   (void);
-void               lpe_huffman_post_process_two_trees_vflab  (LPE_HUFFMAN_VFLAB* vflab, UINT_32 vflab_counter, UINT_32** two_trees_binary_bits_buffer, UINT_32* bits_number_holder);
-UINT_32*           lpe_huffman_get_code_bit_lengths          (void);
-void               lpe_huffman_encode_actual_data            (LPE_LZ77_LZ77_OUTPUT_PACKAGE* lz77_output, UINT_32** encoded_bitstream, UINT_32* encoded_bitstream_size);
-UINT_32            lpe_huffman_get_header_values             (UINT_32* header, UINT_32* hlit, UINT_32* hdist, UINT_32* hclen);
-void               lpe_huffman_dump_vflab                    (LPE_HUFFMAN_VFLAB* vflab, UINT_32 entries);
+LPE_HUFFMAN_VFLAB* lpe_huffman_create_litlen_histogram                           (LPE_LZ77_LZ77_OUTPUT_PACKAGE* lz77_output);
+LPE_HUFFMAN_VFLAB* lpe_huffman_create_dist_histogram                             (LPE_LZ77_LZ77_OUTPUT_PACKAGE* lz77_output);
+void               lpe_huffman_construct_huffman_binary_tree                     (UINT_32** buffer, UINT_32* bits_number, TREE_ID id);
+void               lpe_huffman_concatenate_two_bitstreams                        (UINT_32* target, UINT_32* bit_stream_1, UINT_32* bit_stream_2, UINT_32 bits_number_1, UINT_32 bits_number_2);
+void               lpe_huffman_free_vflabs                                       (void);
+void               lpe_huffman_post_process_two_trees_vflab                      (LPE_HUFFMAN_VFLAB* vflab, UINT_32 vflab_counter, UINT_32** two_trees_binary_bits_buffer, UINT_32* bits_number_holder);
+UINT_32*           lpe_huffman_get_code_bit_lengths                              (void);
+void               lpe_huffman_encode_actual_data                                (LPE_LZ77_LZ77_OUTPUT_PACKAGE* lz77_output, UINT_32** encoded_bitstream, UINT_32* encoded_bitstream_size);
+UINT_32            lpe_huffman_get_header_values                                 (UINT_32* header, UINT_32* hlit, UINT_32* hdist, UINT_32* hclen);
+void               lpe_huffman_dump_vflab                                        (LPE_HUFFMAN_VFLAB* vflab, UINT_32 entries);
+void               lpe_huffman_construct_virtual_tree_for_frequency_sorted_vflab (LPE_HUFFMAN_VFLAB* vflab, UINT_32 non_empty_number);
 
 //***********************************************************************************************************
 
