@@ -21,26 +21,26 @@ huffman_local UINT_32*           code_bit_lengths            = LPE_HUFFMAN_NULL;
 
 #define LPE_HUFFMAN_HANDLE_RIGHT_NODES                                                             \
     nd  = lpe_huffman_new_node();                                                                  \
-	nd->leaf  = LPE_FALSE;                                                                         \
-	nd->bitstream = 0;                                                                             \
-	nd->right = table[n - 1];                                                                      \
-	nd->left  = table[n - 2];                                                                      \
-	nd->value = table[n - 1]->value + table[n - 2]->value;                                         \
-	table[n - 2] = nd;                                                                             \
-	lpe_huffman_all_assigned_virtual_nodes[lpe_huffman_all_assigned_virtual_nodes_counter++] = nd; \
-	n--;
+    nd->leaf  = LPE_FALSE;                                                                         \
+    nd->bitstream = 0;                                                                             \
+    nd->right = table[n - 1];                                                                      \
+    nd->left  = table[n - 2];                                                                      \
+    nd->value = table[n - 1]->value + table[n - 2]->value;                                         \
+    table[n - 2] = nd;                                                                             \
+    lpe_huffman_all_assigned_virtual_nodes[lpe_huffman_all_assigned_virtual_nodes_counter++] = nd; \
+    n--;
 
 #define LPE_HUFFMAN_HANDLE_LEFT_NODES                                                              \
     nd  = lpe_huffman_new_node();                                                                  \
-	nd->leaf  = LPE_FALSE;                                                                         \
-	nd->bitstream = 0;                                                                             \
-	nd->right = table[n - 2];                                                                      \
-	nd->left  = table[n - 3];                                                                      \
-	nd->value = table[n - 2]->value + table[n - 3]->value;                                         \
-	table[n - 3] = nd;                                                                             \
-	table[n - 2] = table[n - 1];                                                                   \
-	lpe_huffman_all_assigned_virtual_nodes[lpe_huffman_all_assigned_virtual_nodes_counter++] = nd; \
-	n--;          
+    nd->leaf  = LPE_FALSE;                                                                         \
+    nd->bitstream = 0;                                                                             \
+    nd->right = table[n - 2];                                                                      \
+    nd->left  = table[n - 3];                                                                      \
+    nd->value = table[n - 2]->value + table[n - 3]->value;                                         \
+    table[n - 3] = nd;                                                                             \
+    table[n - 2] = table[n - 1];                                                                   \
+    lpe_huffman_all_assigned_virtual_nodes[lpe_huffman_all_assigned_virtual_nodes_counter++] = nd; \
+    n--;          
 
 //***********************************************************************************************************
 
