@@ -1488,7 +1488,7 @@ huffman_local void lpe_huffman_free_node(LPE_VIRTUAL_NODE* node)
 	if (node)
 	{
 		lpe_free_allocated_mem(node);
-		node = LPE_NULL;
+		node = LPE_HUFFMAN_NULL;
 	}
 	return;
 }
@@ -1535,7 +1535,7 @@ huffman_local void lpe_huffman_hand_bitstream_to_vflab(LPE_HUFFMAN_VFLAB* vflab,
 void lpe_huffman_construct_virtual_tree_for_frequency_sorted_vflab(LPE_HUFFMAN_VFLAB* vflab, UINT_32 non_empty_number)
 {
 	// define a temporary LPE_VIRTUAL_NODE holder
-	LPE_VIRTUAL_NODE* nd = LPE_NULL;
+	LPE_VIRTUAL_NODE* nd = LPE_HUFFMAN_NULL;
 
 	// define an indexer
 	UINT_32 i = 0;
@@ -1553,12 +1553,25 @@ void lpe_huffman_construct_virtual_tree_for_frequency_sorted_vflab(LPE_HUFFMAN_V
 		lpe_huffman_all_assigned_virtual_nodes[lpe_huffman_all_assigned_virtual_nodes_counter++] = nd;
 		nd->leaf      = LPE_TRUE;
 		nd->bitstream = 0;
-		nd->right     = LPE_NULL;
-		nd->left      = LPE_NULL;
+		nd->right     = LPE_HUFFMAN_NULL;
+		nd->left      = LPE_HUFFMAN_NULL;
 		nd->value     = vflab[i].frequency;
 		table[i]      = nd;
 	}
 	
+	// handle cases n = 1 and n = 2
+	if (n == 1)
+	{
+		vflab[0].level = 1;
+		vflab[0].assigned_reversed_bits = 0;
+		return;
+	}
+	else if (n == 2)
+	{
+		LPE_HUFFMAN_HANDLE_RIGHT_NODES;
+		goto LPE_HUFFMAN_END_OF_NODES;
+	}
+
 	// handle last two nodes statically as beginner
 	LPE_HUFFMAN_HANDLE_RIGHT_NODES;
 
@@ -1593,6 +1606,8 @@ void lpe_huffman_construct_virtual_tree_for_frequency_sorted_vflab(LPE_HUFFMAN_V
 
 	// create final node which is the root uppest point of the tree
 	LPE_HUFFMAN_HANDLE_RIGHT_NODES;
+
+LPE_HUFFMAN_END_OF_NODES:
 
 	// determine bit stream for every node in the tree
 	lpe_huffman_assign_bitstream(*table, 0);

@@ -8,6 +8,7 @@
         "lpe_filterizer.h": "c",
         "lpe_bitmap_reader.h": "c",
         "lpe_compressor.h": "c",
-        "lpe_string_unit.h": "c"
+        "lpe_string_unit.h": "c",
+        "lpe_huffman_encoder.h": "c"
     }
 }
